@@ -1,0 +1,79 @@
+.category-header {
+    width: 100%;
+    background: #0b0f19;
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* Navigation */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* Liens catégories */
+.category-nav a {
+    color: #ffffff;
+    text-decoration: none;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    position: relative;
+    transition: 0.3s ease;
+}
+
+
+/* Animation au survol */
+.category-nav a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 0%;
+    height: 2px;
+
+    background: #ff5a5f;
+
+    transition: width 0.3s ease;
+}
+
+
+.category-nav a:hover {
+    color: #ff5a5f;
+}
+
+
+.category-nav a:hover::after {
+    width: 100%;
+}
+
+
+/* Mobile */
+@media(max-width:700px){
+
+    .category-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 25px;
+    }
+
+
+    .category-nav a {
+        white-space: nowrap;
+    }
+
+}

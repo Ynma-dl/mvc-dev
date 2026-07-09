@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/home.css">
+    </head>
+
+    <body>
+
+        <header class="category-header">
+            <nav class="category-nav">
+                <a href="#novelty-section">Nouveautés</a>
+                <a href="#">Vestes</a>
+                <a href="#">Pantalons</a>
+                <a href="#">Chaussures</a>
+                <a href="#">Accessoires</a>
+                <a href="#">Promotions</a>
+            </nav>
+        </header>
+
+        <section class="hero-banner">
+            <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>Nouvelle Ère</h1>
+                    <p>
+                        Découvrez notre collection exclusive pensée pour un style unique.
+                    </p>
+                    <a href="#" class="hero-btn">Découvrir la collection</a>
+                </div>
+        </section>
+        <div class="main-container">
+            <section class="collection-section" id="1">
+
+                <h1 class="page-title">Collection 1</h1>
+                <script>
+                    const products1 = document.getElementById("1");
+
+                    for (let i = 0; i < 4; i++) {
+                        products1.innerHTML += `
+                            <div class="cloth-card">
+                                <div class="cloth-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1730019674816-7449e13d07dc?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+                                <div class="cloth-info">
+                                    <h3>Produit ${i + 1}</h3>
+                                    <p>Joli produit de qualité</p>
+                                    <p>29.98 €</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                </script>
+
+                <h1 class="page-title">Collection 2</h1>
+                <script>
+                const products2 = document.getElementById("1");
+
+                for (let i = 0; i < 4; i++) {
+                    products2.innerHTML += `
+                        <div class="cloth-card">
+                            <div class="cloth-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1730019674816-7449e13d07dc?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+                            <div class="cloth-info">
+                                <h3>Produit ${i + 1}</h3>
+                                <p>Joli produit de qualité</p>
+                                <p>29.98 €</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                </script>
+
+                <div class="collection-showcase">
+                    <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
+                    <h2 class="showcase-name">Collection 1</h2>
+                </div>
+
+            </section>
+        </div>
+
+    </body>
+
+</html>
+
+
+
+
