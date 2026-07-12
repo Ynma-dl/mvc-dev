@@ -1,5 +1,6 @@
 const ProductModel = require("../models/ProductModel");
 const pool = require("../database/db");
+const { displayProductOptions } = require("../utils/function");
 
 
 exports.show = async (req, res) => {
@@ -11,7 +12,12 @@ exports.show = async (req, res) => {
         id
     );
 
+    const optionsHTML = await displayProductOptions(product);
+
+    console.log(optionsHTML);
+
     res.render("product", {
-        product
+        product,
+        optionsHTML
     });
 };

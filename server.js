@@ -4,7 +4,7 @@ const productRoutes = require("./routes/product_route.js");
 const path = require('path');
 const pool = require('./database/db.js');
 const ProductModel = require('./models/ProductModel.js');
-const displayCollections = require("./utils/function.js");
+const { displayCollections } = require("./utils/function.js");
 const PORT = 5000;
 const app = express();
 

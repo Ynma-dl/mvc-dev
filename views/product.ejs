@@ -1,13 +1,137 @@
-<h1>
-    <%= product.name %>
-</h1>
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Charger Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Page produit</title>
+    <link rel='stylesheet' href='/css/product.css'>
+</head>
+<body>
+    
+    <main class="main-content">
 
-<img src="<%= product.image_url %>">
+        <!-- Icône retour -->
+         <div id="back-div">
+            <a id="back-to-catalogue" href="http://localhost:5000/"><p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span id="back-to-catalogue">Retour au catalogue</span></p></a>
+         </div>
 
-<p>
-    <%= product.description %>
-</p>
+        <section class="grid-product">
+            <div class="product-imgs-div">
+            <div id="main-img" style="background-image: url('<%= product.image_url %>');"></div>
+            <div id="other-imgs">
+                <div class="other-img-div" id="img-1"></div>
+                <div class="other-img-div" id="img-2"></div>
+                <div class="other-img-div" id="img-3"></div>
+            </div>
+            </div>
 
-<p>
-    <%= product.price %> €
-</p>
+            <div class="product-info-div">
+
+                <div id="is_dispo"><i class="fa-solid fa-circle"></i> Disponible</div>
+
+                <h1 id="name"><%= product.name %></h1>
+                <h2 id="price"><%= product.price %> €</h2>
+                <h4 id="option">Options</h4>
+                <div id="option-div">
+
+                    <%- optionsHTML %>
+                    
+                </div>
+                <h3>Description</h3>
+                <p id="description-place"><%= product.description %></p>
+                <p>stock: <%= product.stock %></p>
+                <p>Catégorie: <%= product.category %></p>
+                <button class="add-to-cart"><i class="fa-solid fa-cart-arrow-down"></i> <span>Add to cart</span></button>
+                <p id="comment"><i class="fa-regular fa-clock"></i> Reponse rapide du vendeur (souvent 5min)</p>
+                <div id="shipping-info">
+                    <h4><i class="fa-solid fa-truck"></i> Livraison</h4>
+
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+                    <div class="location-div">
+                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
+                        <p class="shipping-price">1500 FCFA</p>
+
+                    </div>
+
+            </div>
+
+            <div class="payement-notice">
+
+                <h4>instruction de paiement</h4>
+                <p>paiement à la livraison <i class="fa-solid fa-circle-check"></i></p>
+                <p>Mivraison à vos frais</p>
+
+            </div>
+
+            <div id="how-working">
+                <p><i class="fa-solid fa-clipboard"></i> Comment ça marche ?</p>
+                <p><span class="step">1</span> Cliquez sur "Commander" pour passer au paiement</p>
+                <p><span class="step">2</span> Le vendeur reçois une commande ur WhatsApp et vous livre</p>
+                <p><span class="step">3</span> vous payer à la livraison avec vos moyen habituel(Mobile money, carte de crédit)</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        
+        const is_dispo = document.getElementById("is_dispo");
+        const container = document.getElementById("option-div");
+
+        container.addEventListener("click", (e) => {
+            const option = e.target.closest(".option-item");
+            if (!option) return;
+
+            container.querySelectorAll(".option-item")
+                .forEach(el => el.classList.remove("active"));
+
+            option.classList.add("active");
+        });
+
+        const stock = <%= product.stock %>;
+        if (stock <= 0){
+            is_dispo.classList.add("false");
+        }
+
+    </script>
+
+</body>
+</html>

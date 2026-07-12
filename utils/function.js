@@ -77,8 +77,32 @@ async function displayCollections(allCollections, limit = null) {
     return html;
 }
 
-function resetCollectionsDisplay(req) {
-    req.session.collection_index = 0;
+async function displayProductOptions(product) {
+
+    if (!product || !product.options) {
+        return "";
+    }
+
+    const options = product.options.split(",");
+
+    let html = "";
+    let compt = 1;
+    options.forEach(option => {
+        html += `
+            <div id="option-${compt}" class="option-item">
+                ${option.trim()}
+            </div>
+            <script>
+                const compte = ${compt}
+            </script>
+        `;
+        compt += 1;
+    });
+
+    return html;
 }
 
-module.exports = displayCollections;
+module.exports = {
+    displayProductOptions,
+    displayCollections
+};
