@@ -361,4 +361,5 @@ module.exports = {
     displayCollectionSelection,
     renderCollectionProducts,
     makeResearch,
+    createProductCard
 };

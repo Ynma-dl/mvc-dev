@@ -1,31 +1,46 @@
-<!-- views/search.ejs -->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
   <meta charset="UTF-8">
-  <title>Résultats de recherche<% if (query) { %> pour "<%= query %>"<% } %>
+  <title>
+    Résultats de recherche
+    <% if (query) { %>
+      pour "<%= query %>"
+    <% } %>
   </title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="/css/research.css">
 </head>
 
 <body>
+
   <div class="head-div">
+
     <!-- Icône retour -->
     <div id="back-div">
-      <a id="back-to-catalogue" href="http://localhost:5000/">
-        <p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span id="back-to-catalogue">Retour au
-            catalogue</span></p>
+      <a href="http://localhost:5000/" id="back-to-catalogue">
+        <p>
+          <i class="fa-solid fa-arrow-left-long"></i>
+          <span>Retour au catalogue</span>
+        </p>
       </a>
+    </div>
 
-    </div class="form-div">
-    <form action="/search" method="GET" class="search-form">
-      <input type="text" name="q" value="<%= query %>" placeholder="Rechercher un produit...">
-      <button type="submit">Chercher</button>
-    </form>
+    <div class="form-div">
+      <form action="/search" method="GET" class="search-form">
+        <input
+          type="text"
+          name="q"
+          value="<%= query %>"
+          placeholder="Rechercher un produit..."
+        >
+        <button type="submit">Chercher</button>
+      </form>
+    </div>
+
   </div>
-
 
   <div class="filter-contain">
     <div class="filter-bar">
@@ -37,37 +52,37 @@
       </span>
 
       <button class="button-filter">
-        <span>Filtrer</span>&nbsp;
+        <span>Filtrer</span>
+        &nbsp;
         <span class="number-result-amount">0</span>
       </button>
 
     </div>
-
   </div>
 
   <div class="research-title">
     <% if (query) { %>
       <h1>Résultats pour "<%= query %>"</h1>
-      <% } %>
-    </div>
+    <% } %>
+  </div>
 
   <div class="search-results">
-
 
     <% if (message) { %>
       <p class="search-message">
         <%= message %>
       </p>
-      <% } %>
+    <% } %>
 
-        <% if (results && results.length> 0) { %>
-          <% results.forEach(product=> { %>
-            <!-- Réutilise ton partial de product card si tu en as déjà un -->
-            <p>
-              <%= product.name %>
-            </p>
-            <% }) %>
-              <% } %>
+    <% if (results && results.length > 0) { %>
+
+      <%- productsHtml %>
+
+    <% } else { %>
+
+      <p>Aucun produit trouvé.</p>
+
+    <% } %>
 
   </div>
 

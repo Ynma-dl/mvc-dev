@@ -1,7 +1,6 @@
 const { makeResearch } = require("../utils/function");
+const { createProductCard } = require("../utils/function");
 const pool = require("../database/db");
-
-
 // controllers/searchController.js
 
 exports.showSearchResults = async (req, res) => {
@@ -21,13 +20,13 @@ exports.showSearchResults = async (req, res) => {
     // const results = await Product.search(query);
 
     const results = await makeResearch(pool, query); // <-- remplace par ta vraie recherche en BDD
-
-    console.log(results)
+    const productsHtml = createProductCard(results);
 
     res.render('research', {
       query,
       results,
-      message: results.length === 0 ? 'Aucun résultat trouvé.' : null
+      message: results.length === 0 ? 'Aucun résultat trouvé.' : null,
+      productsHtml
     });
 
   } catch (err) {

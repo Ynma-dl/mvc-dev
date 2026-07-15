@@ -155,3 +155,86 @@ main {
 .research-title{
     margin-left: 25%;
 }
+
+* Cartes vêtements */
+.cloth-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.3s,
+                border-color 0.3s;
+}
+
+.cloth-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.cloth-img {
+    width: 100%;
+    height: 220px; /* réduit de 320px → carte moins haute */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    transition: transform 0.5s;
+}
+
+
+.cloth-card:hover .cloth-img {
+    transform: scale(1.05);
+}
+
+/* Bloc info EN DESSOUS de l'image, pas en superposition */
+.cloth-info {
+    padding: 12px 16px; /* plus compact */
+    background: #1a1d1b;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cloth-info h3 {
+    font-size: 1.2rem;
+    color: var(--tertiary-accent);
+    margin: 0;
+}
+
+.cloth-info p {
+    color: var(--tertiary-accent);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.cloth-info p:last-child {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+/* Responsive : on réduit le nombre de colonnes sur petits écrans */
+@media (max-width: 1200px) {
+    .collection-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 24px 64px;
+    }
+}
+
+@media (max-width: 900px) {
+    .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+}
