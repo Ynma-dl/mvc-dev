@@ -315,10 +315,50 @@ async function renderCollectionProducts(pool, collection) {
     }
 }
 
+async function makeResearch(pool, word) {
+
+    try {
+
+        const rows = await pool.query(
+            `
+            SELECT *
+            FROM products
+            WHERE
+                name LIKE ?
+                OR slug LIKE ?
+                OR FIND_IN_SET(?, tags)
+                OR tags LIKE ?
+            ORDER BY name ASC
+            `,
+            [
+                `%${word}%`,
+                `%${word}%`,
+                word,
+                `%${word}%`
+            ]
+        );
+
+        return rows;
+
+    } catch (error) {
+
+        console.error(
+            "Erreur SQL lors de la recherche des produits :",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+
 module.exports = {
     displayProductOptions,
     displayCollections,
     displayCollectionShowcase,
     displayCollectionSelection,
-    renderCollectionProducts
+    renderCollectionProducts,
+    makeResearch,
 };

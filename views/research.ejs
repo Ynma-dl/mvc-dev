@@ -1,0 +1,44 @@
+<!-- views/search.ejs -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Résultats de recherche<% if (query) { %> pour "<%= query %>"<% } %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Formulaire de recherche (réutilisable en haut de page) -->
+  <form action="/search" method="GET" class="search-form">
+    <input
+      type="text"
+      name="q"
+      value="<%= query %>"
+      placeholder="Rechercher un produit..."
+    >
+    <button type="submit">Chercher</button>
+  </form>
+
+  <div class="search-results">
+
+    <% if (query) { %>
+      <h2>Résultats pour "<%= query %>"</h2>
+    <% } %>
+
+    <% if (message) { %>
+      <p class="search-message"><%= message %></p>
+    <% } %>
+
+    <% if (results && results.length > 0) { %>
+      <div class="products-grid">
+        <% results.forEach(product => { %>
+          <!-- Réutilise ton partial de product card si tu en as déjà un -->
+          <p><%= results.name %></p>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </div>
+
+</body>
+</html>

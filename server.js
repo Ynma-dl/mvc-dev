@@ -10,8 +10,8 @@ const { displayCollectionSelection } = require("./utils/function.js");
 const PORT = 5000;
 const app = express();
 const cartRoutes = require('./routes/cart_route');
-const collectionRoutes = require('./routes/collection_route.js')
-
+const collectionRoutes = require('./routes/collection_route.js');
+const searchRoutes = require('./routes/research_route.js');
 const productModel = new ProductModel(pool);
 
 
@@ -43,6 +43,7 @@ app.use((req, res, next) => {
 app.use("/product", productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/collection', collectionRoutes)
+app.use('/', searchRoutes);
 
 console.log(process.env.DB_HOST);
 console.log(process.env.DB_PORT);
@@ -55,7 +56,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.get("/", async (req, res) => {
 
-    const showCase = await displayCollectionShowcase("sneakers");
+    const showCase = await displayCollectionShowcase("été");
 
     const collections = await ProductModel.getAllCollections(pool);
 
