@@ -326,8 +326,8 @@ async function makeResearch(pool, word) {
             WHERE
                 name LIKE ?
                 OR slug LIKE ?
-                OR FIND_IN_SET(?, tags)
-                OR tags LIKE ?
+                OR FIND_IN_SET(?, category)
+                OR category LIKE ?
             ORDER BY name ASC
             `,
             [

@@ -1,4 +1,4 @@
-const { research } = require("../utils/function");
+const { makeResearch } = require("../utils/function");
 const pool = require("../database/db");
 
 
@@ -20,7 +20,7 @@ exports.showSearchResults = async (req, res) => {
     // Exemple avec ta base de données (adapte selon ton modèle/PDO wrapper etc.)
     // const results = await Product.search(query);
 
-    const results = await research.makeResearch(pool, query); // <-- remplace par ta vraie recherche en BDD
+    const results = await makeResearch(pool, query); // <-- remplace par ta vraie recherche en BDD
 
     console.log(results)
 

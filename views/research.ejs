@@ -30,12 +30,10 @@
     <% } %>
 
     <% if (results && results.length > 0) { %>
-      <div class="products-grid">
         <% results.forEach(product => { %>
           <!-- Réutilise ton partial de product card si tu en as déjà un -->
-          <p><%= results.name %></p>
+          <p><%= product.name %></p>
         <% }) %>
-      </div>
     <% } %>
 
   </div>
