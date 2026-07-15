@@ -36,96 +36,23 @@
                 <%- html %>
 
             </section>
-            <section class="showcase-section">
-                <h2 class="title2">All Collections</h2>
-
-                <div class="collection-showcase" id="showcase-1">
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-                </div>
-                <h2 class="title2">All Collections</h2>
-
-                <div class="collection-showcase" id="showcase-1">
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-
-                    <div class="collection">
-                        <div class="collection-img" style="background-image: url('../images/image2.jpg')"></div>
-                        <h2 class="showcase-name">Collection 1</h2>
-                    </div>
-                </div>
-            </section>
+            
+            <%- showCase %>
 
         </main>
 
         <aside id="secondary-content">
 
-            <section class="summer-selection">
+            <%- gridSelection %>
 
-                <h2 class="title2">Summer Selection</h2>
-                <div class="selection-grid">
-
-                    <div class="selection-item" id="d">
-                        <div class="selection-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCMi9tlOzE_zwmjsOy-9gufDgQvgF7nYelLJQEXhjHvw&s=10')">
-
-                            <h3 class="selection-name">Summer Dress</h3>
-                            <strong><a href="#" class="details-link">View Details</a></strong>
-
-                        </div>
-                    </div>
-
-                    <div class="selection-item">
-                        <div class="selection-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCMi9tlOzE_zwmjsOy-9gufDgQvgF7nYelLJQEXhjHvw&s=10')">
-
-                            <h3 class="selection-name">Summer Dress</h3>
-                            <strong><a href="#" class="details-link">View Details</a></strong>
-
-                        </div>
-
-                    </div>
-
-                    <div class="selection-item">
-                        <div class="selection-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCMi9tlOzE_zwmjsOy-9gufDgQvgF7nYelLJQEXhjHvw&s=10')">
-
-                            <h3 class="selection-name">Summer Dress</h3>
-                            <strong><a href="#" class="details-link">View Details</a></strong>
-
-                        </div>
-
-                </div>
-
-            </section>
-
+            <div class="cart-container">
+                
         </aside>
+
+        <div class="cart-sticker">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count">0</span>
+        </div>
 
         <footer class="footer">
             <div class="footer-container">
@@ -152,6 +79,10 @@
                 © 2026 Votre Marque. Tous droits réservés.
             </div>
         </footer>
+
+        <%- include('partials/cart-popup') %>
+        <script src="/js/cart.js"></script>
+        <script src="/js/carousel.js"></script>
 
     </body>
 

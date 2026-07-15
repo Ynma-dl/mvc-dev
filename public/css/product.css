@@ -20,7 +20,6 @@ body {
     overflow-x: hidden;
 }
 
-
 .grid-product{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -60,39 +59,85 @@ body {
     border-radius: 20px;
 }
 
-.product-imgs-div{
-    display: grid;
-    grid-template-rows: 87% 100px;
+.product-imgs-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Image principale */
+#main-img {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#main-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* Zone miniatures */
+#other-imgs {
+    display: flex;
     gap: 8px;
-    border-radius: 5px;
+    flex-wrap: wrap;
 }
 
-#main-img{
+
+/* Conteneur miniature */
+.other-img-div {
+    width: 100px;
+    height: 100px;
+    flex: 0 0 100px; /* empêche la miniature de changer de taille */
     border-radius: 10px;
+    overflow: hidden;
 }
 
-#other-imgs{
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    gap: 8px
-}
-.other-img-div{
-    border-radius: 10px;
-}
 
-#img-1{
-    background-color: yellow;
-}
-
-#img-2{
-    background-color: #5aff70;
-}
-
-#img-3{
-    background-color: maroon;
+/* Image miniature */
+.other-img-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 /* container details*/
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    width: fit-content;
+    left: 20px;
+    position: relative;
+}
+
+.quantity-control button {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.quantity {
+    width: 35px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.plus,.minus{
+    color: var(--secondary-txt);
+}
 
 #is_dispo{
     color: green;
@@ -158,11 +203,21 @@ body {
     border-radius: 30px;
     font-size: larger;
     background-color: #5aff70;
+    cursor: pointer;
+    transition: transform 0.15s ease;
 }
 
-#option-div{
+.add-to-cart.clicked {
+    transform: scale(0.95);
+}
+
+.options-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+}
+
+.option-items{
+    display: flex;
 }
 
 .option-item{

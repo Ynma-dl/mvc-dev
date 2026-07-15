@@ -1,0 +1,46 @@
+<head>
+    <link rel="stylesheet" href="./css/cart.css">
+</head>
+
+<div class="popup-overlay hidden">
+    <div id="cart-popup" class="cart-popup hidden">
+        <div class="cart-popup-header hidden">
+            <h3>Votre panier</h3>
+            <button id="close-cart"><span>&times;</span></button>
+        </div>
+    <div id="cart-items"></div>
+        <div class="cart-total">
+            Total: <span id="cart-total-price">0</span> FCFA
+        </div>
+    </div>
+</div>
+
+
+<script>
+const closeCartBtn = document.querySelector("#close-cart");
+const cartPopup = document.querySelector("#cart-popup");
+const overlay = document.querySelector(".popup-overlay");
+
+closeCartBtn.addEventListener("click", () => {
+    cartPopup.classList.add("hidden");
+    overlay.classList.add("hidden");
+});
+
+document.addEventListener("click", async (e) => {
+    if (!e.target.classList.contains("remove-item")) return;
+
+    const item = e.target.closest(".cart-item");
+
+    await fetch("/cart/remove", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            id: item.dataset.id,
+            option: item.dataset.option
+        })
+    });
+
+    loadCart();
+    updateCartSticker();
+});
+</script>

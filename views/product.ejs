@@ -19,31 +19,74 @@
 
         <section class="grid-product">
             <div class="product-imgs-div">
-            <div id="main-img" style="background-image: url('<%= product.image_url %>');"></div>
-            <div id="other-imgs">
-                <div class="other-img-div" id="img-1"></div>
-                <div class="other-img-div" id="img-2"></div>
-                <div class="other-img-div" id="img-3"></div>
+
+                <div id="main-img">
+                    <img src="<%= product_imgs[0] %>" alt="Image principale du produit">
+                </div>
+
+                <div id="other-imgs">
+                    <% for (let i = 1; i < product_imgs.length; i++) { %>
+                        <div class="other-img-div">
+                            <img src="<%= product_imgs[i] %>" alt="Image miniature du produit">
+                        </div>
+                    <% } %>
+                </div>
+
             </div>
-            </div>
+
+            <script>
+                const mainImg = document.querySelector("#main-img img");
+
+                document.querySelectorAll(".other-img-div img").forEach(img => {
+
+                    img.addEventListener("click", () => {
+
+                        const temp = mainImg.src;
+
+                        mainImg.src = img.src;
+                        img.src = temp;
+
+                    });
+
+                });
+            </script>
 
             <div class="product-info-div">
 
                 <div id="is_dispo"><i class="fa-solid fa-circle"></i> Disponible</div>
 
                 <h1 id="name"><%= product.name %></h1>
-                <h2 id="price"><%= product.price %> €</h2>
+                <h2 id="price"><%= product.price %> FCFA</h2>
                 <h4 id="option">Options</h4>
-                <div id="option-div">
-
+                <div class="options-container">
                     <%- optionsHTML %>
-                    
                 </div>
+
+                <div class="quantity-control">
+
+                <button class="minus">-</button>
+
+                <span class="quantity">1</span>
+
+                <button class="plus">+</button>
+
+            </div>
                 <h3>Description</h3>
                 <p id="description-place"><%= product.description %></p>
                 <p>stock: <%= product.stock %></p>
                 <p>Catégorie: <%= product.category %></p>
-                <button class="add-to-cart"><i class="fa-solid fa-cart-arrow-down"></i> <span>Add to cart</span></button>
+                
+                <button 
+                    class="add-to-cart"
+                    data-id="<%= product.id %>"
+                    data-name="<%= product.name %>"
+                    data-price="<%= product.price %>"
+                    data-quantity=""
+                    data-image="<%= product_imgs[0] %>">
+                    
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                    <span>Add to cart</span>
+                </button>
                 <p id="comment"><i class="fa-regular fa-clock"></i> Reponse rapide du vendeur (souvent 5min)</p>
                 <div id="shipping-info">
                     <h4><i class="fa-solid fa-truck"></i> Livraison</h4>
@@ -114,20 +157,81 @@
     <script>
         
         const is_dispo = document.getElementById("is_dispo");
-        const container = document.getElementById("option-div");
+        const optionGroups = document.querySelectorAll(".option-div");
+        const selectedOptions = {};
+        const addCartBtn = document.querySelector(".add-to-cart");
+        const minus = document.querySelector(".minus");
+        const plus = document.querySelector(".plus");
+        const quantity = document.querySelector(".quantity");
 
-        container.addEventListener("click", (e) => {
-            const option = e.target.closest(".option-item");
-            if (!option) return;
+        plus.addEventListener("click", () => {
+            quantity.textContent = Number(quantity.textContent) + 1;
+        });
 
-            container.querySelectorAll(".option-item")
-                .forEach(el => el.classList.remove("active"));
+        minus.addEventListener("click", () => {
+            let value = Number(quantity.textContent);
+            if (value > 1) {
+                quantity.textContent = value - 1;
+            }
+        });
 
-            option.classList.add("active");
+        // Gestion de la sélection des options (un choix actif par groupe)
+        optionGroups.forEach(group => {
+            group.addEventListener("click", (e) => {
+                const option = e.target.closest(".option-item");
+                if (!option) return;
+
+                group.querySelectorAll(".option-item")
+                    .forEach(item => item.classList.remove("active"));
+
+                option.classList.add("active");
+
+                selectedOptions[group.dataset.group] = option.dataset.option;
+            });
+        });
+
+        // Un seul listener pour le clic "Ajouter au panier"
+        addCartBtn.addEventListener("click", async () => {
+
+            addCartBtn.classList.add('clicked');
+            setTimeout(() => addCartBtn.classList.remove('clicked'), 150);
+
+            if (Object.keys(selectedOptions).length !== optionGroups.length) {
+                alert("Veuillez choisir toutes les options.");
+                return;
+            }
+
+            const product = {
+                id: addCartBtn.dataset.id,
+                name: addCartBtn.dataset.name,
+                price: Number(addCartBtn.dataset.price),
+                options: selectedOptions,          // objet: { Pointure: "42", Couleur: "Noir" }
+                quantity: Number(quantity.textContent),
+                image: addCartBtn.dataset.image
+            };
+
+            try {
+                const res = await fetch('/cart/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(product)
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    renderCart(data.cart);
+                    alert("Produit ajouté au panier !");
+                    updateCartSticker();
+                }
+
+            } catch (err) {
+                console.error("Erreur ajout panier:", err);
+            }
         });
 
         const stock = <%= product.stock %>;
-        if (stock <= 0){
+        if (stock <= 0) {
             is_dispo.classList.add("false");
         }
 

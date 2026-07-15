@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/collection.css">
+    <title>Collection</title>
+</head>
+<body>
+
+    <div class="style-base-div">
+            <!-- Icône retour -->
+        <div id="back-div">
+            <a id="back-to-catalogue" href="http://localhost:5000/"><p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span id="back-to-catalogue">Retour au catalogue</span></p></a>
+        </div>
+        
+        <h1 class="collection_title"><%= collection.name %></h1>
+    </div>
+
+    <main>
+
+        <div class="filter-contain">
+            <div class="filter-bar">
+                
+                <span class="style-gray" style="margin: 0;">
+                    <span class="result-amount">237</span>
+                    &nbsp;
+                    résultat
+                </span>
+
+                <button class="button-filter">
+                    <span>Filtrer</span>&nbsp;
+                    <span class="number-result-amount">0</span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="collection-grid">
+            <%- productsHtml %>
+        </div>
+
+    </main>
+    
+</body>
+</html>

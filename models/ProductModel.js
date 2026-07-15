@@ -17,6 +17,20 @@ class ProductModel {
     return rows[0];
     }
 
+    static async getProductBySlug(pool, slug){
+
+    const rows = await pool.query(
+        `
+        SELECT *
+        FROM products
+        WHERE slug = ?
+        `,
+        [slug]
+    );
+
+    return rows[0];
+    }
+
     static async getAllProducts(pool) {
         try {
             const rows = await pool.query(
@@ -38,13 +52,19 @@ class ProductModel {
     static async getAllCollections(pool) {
 
         try {
+
             const rows = await pool.query(
-                "SELECT DISTINCT category FROM products"
+                `
+                SELECT *
+                FROM collections
+                ORDER BY display_home DESC
+                `
             );
 
             return rows;
 
         } catch (error) {
+
             console.error(
                 "Erreur SQL lors de la récupération des collections :",
                 error
@@ -54,22 +74,55 @@ class ProductModel {
         }
     }
 
-    static async getProductsByCollection(pool, collection) {
-
+    static async getCollectionBySlug(pool, slug) {
+        
         try {
+
             const rows = await pool.query(
-                "SELECT * FROM products WHERE category = ?",
-                [collection]
+                `
+                SELECT *
+                FROM collections
+                WHERE slug=?
+                `,
+                [slug]
             );
 
             return rows;
 
         } catch (error) {
+
             console.error(
-                "Erreur SQL lors de la récupération des produits par collection :",
+                "Erreur SQL lors de la récupération des collections :",
                 error
             );
 
+            throw error;
+        }
+    
+    }
+
+    static async getProductsByCollection(pool, collection) {
+
+        try {
+
+            const rows = await pool.query(
+                `
+                SELECT *
+                FROM products
+                WHERE FIND_IN_SET(?, REPLACE(category, ' ', ''))
+                OR FIND_IN_SET(?, REPLACE(category, ' ', ''))
+                `,
+                [
+                    collection.tag,
+                    collection.name
+                ]
+            );
+
+            return rows;
+
+
+        } catch (error) {
+            console.error(error);
             throw error;
         }
     }
