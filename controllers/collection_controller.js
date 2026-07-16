@@ -6,7 +6,6 @@ const { renderCollectionProducts } = require("../utils/function")
 exports.show = async (req, res) => {
 
     const slug = req.params.slug;
-$
     const collection = await collectionModel.getCollectionBySlug(
         pool,
         slug
