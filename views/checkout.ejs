@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/checkout.css">
+    <title>Checkout</title>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="style-base-div">
+            <!-- Icône retour -->
+            <div id="back-div">
+                <a id="back-to-catalogue" href="http://localhost:5000/">
+                    <p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span
+                            id="back-to-catalogue">Retour au catalogue</span></p>
+                </a>
+            </div>
+            <h1>Finaliser ta commande</h1>
+            <p class="style-gray">Remplissez vos information pour avoir un bon de commande</p>
+
+        </div>
+    </header>
+
+    <main>
+
+        <div class="flex content-div">
+
+            <div class="recap-div"></div>
+
+            <div class="info-div">
+
+                <h1>Tes informations</h1>
+
+                <p class="style-gray">Remplissez le formulaire pour générer un bon</p>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nom">Pr&eacute;nom &amp; Nom<span class="required">*</span></label>
+                            <input type="text" id="nom" name="nom" placeholder="Ex: Moussa Kon&eacute;" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp">Num&eacute;ro WhatsApp</label>
+                            <div class="phone-field">
+                                <div class="country-code">
+                                    <span class="flag">
+                                        <span class="orange"></span><span class="white"></span><span
+                                            class="green"></span>
+                                    </span>
+                                    <span class="chevron">&#9660;</span>
+                                    <span>+225</span>
+                                </div>
+                                <input type="tel" id="whatsapp" name="whatsapp" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pays">Pays</label>
+                            <select id="pays" name="pays">
+                                <option value="CI" selected>C&ocirc;te d'Ivoire</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ville">Ville / Commune<span class="required">*</span></label>
+                            <input type="text" id="ville" name="ville" placeholder="Ex: Abidjan, Cocody" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="adresse">Adresse pr&eacute;cise / Rep&egrave;re</label>
+                        <textarea id="adresse" name="adresse"
+                            placeholder="Ex: Angr&eacute; 8&egrave;me tranche, pharmacie des all&eacute;es"></textarea>
+                    </div>
+
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="save" name="save">
+                        <label for="save">Enregistrer pour la prochaine fois</label>
+                    </div>
+                </form>
+
+                <p class="style-gray">Aperçu du message</p>
+
+                <div class="message-view">
+                    <pre id="message-preview"></pre>
+                </div>
+
+                <button class="send-message"><i class="fa-brands fa-whatsapp"></i>&nbsp; Envoyer le message</button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Le panier est injecté côté serveur, exploitable côté client
+        window.cartData = <%- JSON.stringify(cart) %>;
+        window.cartTotal = <%= total %>;
+    </script>
+    <script src="/js/checkout-message.js" defer></script>
+
+</body>
+
+</html>

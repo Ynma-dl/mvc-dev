@@ -1,3 +1,17 @@
+/* --- VARIABLES DE COULEURS --- */
+:root {
+    --primary-bg: #0B0F19;
+    --secondary-txt: #F8FAFC;
+    --secondary-muted: #64748B;
+    --tertiary-accent: #5aff70;
+    --card-bg: #1E293B;
+    --font-sharp: "__Sharp_73163e", "__Sharp_Fallback_73163e";
+}
+
+ body{
+    font-family: var(--font-sharp);
+ }
+
 .hidden{
     display:none;
 }
@@ -70,4 +84,13 @@
     color:#ff5b5b;
     font-size:1.3rem;
     cursor:pointer;
+}
+
+.swip-to-checkout{
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 9px 5px;
+    background-color: var(--tertiary-accent);
 }

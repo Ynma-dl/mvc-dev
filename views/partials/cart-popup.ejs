@@ -12,6 +12,9 @@
         <div class="cart-total">
             Total: <span id="cart-total-price">0</span> FCFA
         </div>
+
+        <button class="swip-to-checkout" onclick="window.location.href='http://localhost:5000/checkout'">Passer à la commande</button>
+
     </div>
 </div>
 
@@ -20,6 +23,7 @@
 const closeCartBtn = document.querySelector("#close-cart");
 const cartPopup = document.querySelector("#cart-popup");
 const overlay = document.querySelector(".popup-overlay");
+const btn1 = document.querySelector(".swip-to-checkout");
 
 closeCartBtn.addEventListener("click", () => {
     cartPopup.classList.add("hidden");

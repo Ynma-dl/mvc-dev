@@ -12,6 +12,7 @@ const app = express();
 const cartRoutes = require('./routes/cart_route');
 const collectionRoutes = require('./routes/collection_route.js');
 const searchRoutes = require('./routes/research_route.js');
+const checkoutRoutes = require('./routes/checkout_route.js');
 const productModel = new ProductModel(pool);
 
 
@@ -44,6 +45,7 @@ app.use("/product", productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/collection', collectionRoutes)
 app.use('/', searchRoutes);
+app.use('/', checkoutRoutes)
 
 console.log(process.env.DB_HOST);
 console.log(process.env.DB_PORT);
