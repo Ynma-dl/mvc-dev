@@ -29,6 +29,29 @@ function createProductCard(collection) {
     return html;
 }
 
+// Préparer le récapitulatif du panier pour checkout
+function prepareCheckoutCart(cart = []) {
+
+    const items = cart.map(item => ({
+        ...item,
+        optionsText: item.options
+            ? Object.entries(item.options)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join(", ")
+            : ""
+    }));
+
+    const total = cart.reduce((sum, item) => {
+        return sum + Number(item.price) * Number(item.quantity);
+    }, 0);
+
+    return {
+        items,
+        total
+    };
+}
+
+
 
 async function displayCollections(collections) {
 
@@ -74,11 +97,10 @@ async function displayCollections(collections) {
 
                     <div class="product-track">
 
-                        ${
-                            products.length > 0
-                            ? createProductCard(products)
-                            : "<p>Aucun produit disponible.</p>"
-                        }
+                        ${products.length > 0
+                ? createProductCard(products)
+                : "<p>Aucun produit disponible.</p>"
+            }
 
                     </div>
 
@@ -172,6 +194,7 @@ async function displayCollectionShowcase(tag) {
 
             html += `
 
+            <a style="text-decoration: none;" href="http://localhost:5000/collection/${collection.slug}">
                 <div class="collection" data-id="${collection.id}">
 
                     <div 
@@ -187,6 +210,8 @@ async function displayCollectionShowcase(tag) {
                     </h2>
 
                 </div>
+            
+            </a>
 
             `;
 
@@ -205,7 +230,7 @@ async function displayCollectionShowcase(tag) {
         return html;
 
 
-    } catch(error) {
+    } catch (error) {
 
         console.error(
             "Erreur lors de l'affichage du showcase :",
@@ -361,5 +386,6 @@ module.exports = {
     displayCollectionSelection,
     renderCollectionProducts,
     makeResearch,
-    createProductCard
+    createProductCard,
+    prepareCheckoutCart
 };

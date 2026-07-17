@@ -12,7 +12,7 @@
     <div class="style-base-div">
             <!-- Icône retour -->
         <div id="back-div">
-            <a id="back-to-catalogue" href="http://localhost:5000/"><p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span id="back-to-catalogue">Retour au catalogue</span></p></a>
+            <a id="back-to-catalogue" href="javascript:history.back()"><p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span id="back-to-catalogue">Retour au catalogue</span></p></a>
         </div>
         
         <h1 class="collection_title"><%= collection.name %></h1>
@@ -24,9 +24,9 @@
             <div class="filter-bar">
                 
                 <span class="style-gray" style="margin: 0;">
-                    <span class="result-amount">237</span>
+                    <span class="result-amount"><%- totalResults %></span>
                     &nbsp;
-                    résultat
+                    <%= totalResults > 1 ? 'résultats' : 'résultat' %>
                 </span>
 
                 <button class="button-filter">

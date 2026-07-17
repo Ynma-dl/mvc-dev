@@ -16,6 +16,8 @@ function renderCart(cart) {
     container.innerHTML = '';
     let total = 0;
 
+    
+
     cart.forEach(item => {
         total += item.price * item.quantity;
 
@@ -73,10 +75,18 @@ document.getElementById('cart-items').addEventListener('click', async (e) => {
     }
 });
 
-document.querySelector(".cart-sticker").addEventListener("click", () => {
-    document.querySelector(".popup-overlay").classList.remove("hidden");
-    document.querySelector("#cart-popup").classList.remove("hidden");
-});
+function ouvrirMemeOnglet(link) {
+    window.location.href = link;
+}
+
+const cartSticker = document.querySelector(".cart-sticker");
+
+if (cartSticker) {
+    cartSticker.addEventListener("click", () => {
+        document.querySelector(".popup-overlay").classList.remove("hidden");
+        document.querySelector("#cart-popup").classList.remove("hidden");
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCart();

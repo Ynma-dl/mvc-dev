@@ -61,14 +61,33 @@ main {
 }
 
 .recap-div{
-    height: 700px;
-    width: 100%;
+    width: auto;
     background-color: var(--card-bg);
     border-radius: 20px;
+    padding: var(--font-padding-50px);
+}
+
+.recap-div > *{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.payout-notice {
+  background-color: rgba(255, 166, 0, 0.471);
+  border: 1px solid rgb(255, 182, 47);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.waring {
+  background-color: rgba(255, 0, 0, 0.314);
+  border: 1px solid rgb(255, 0, 0);
+  padding: 20px;
+  border-radius: 20px;
 }
 
 .info-div{
-    width: 100%;
+    width: auto;
     background-color: var(--card-bg);
     padding: var(--font-padding-50px);
     border-radius: 20px;

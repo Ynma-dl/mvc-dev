@@ -12,12 +12,19 @@ exports.show = async (req, res) => {
         slug
     );
 
-    const productsHtml = await renderCollectionProducts(pool, collection);
+    const allProduct = await collectionModel.getProductsByCollection(pool, collection);
+    let totalResults = 0;
 
-    console.log(collection);
+    allProduct.forEach(name => {
+        totalResults += 1;
+    });
+
+    const productsHtml = await renderCollectionProducts(pool, collection);
+    
     res.render("collection", {
         collection,
-        productsHtml
+        productsHtml,
+        totalResults
 
 
     });

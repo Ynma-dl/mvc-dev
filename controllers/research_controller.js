@@ -2,29 +2,27 @@ const { makeResearch } = require("../utils/function");
 const { createProductCard } = require("../utils/function");
 const pool = require("../database/db");
 // controllers/searchController.js
-
-exports.showSearchResults = async (req, res) => {
+ exports.showSearchResults = async (req, res) => {
   try {
-    // Récupère la variable "q" dans l'URL : /search?q=chaussures
     const query = req.query.q || '';
 
     if (!query.trim()) {
       return res.render('research', {
         query: '',
         results: [],
-        message: 'Veuillez entrer un terme de recherche.'
+        totalResults: 0, // <-- On initialise à 0 s'il n'y a pas de recherche
+        message: 'Veuillez entrer un terme de recherche.',
+        productsHtml: ''
       });
     }
 
-    // Exemple avec ta base de données (adapte selon ton modèle/PDO wrapper etc.)
-    // const results = await Product.search(query);
-
-    const results = await makeResearch(pool, query); // <-- remplace par ta vraie recherche en BDD
+    const results = await makeResearch(pool, query); 
     const productsHtml = createProductCard(results);
 
     res.render('research', {
       query,
       results,
+      totalResults: results.length, // <-- On envoie le nombre réel de résultats ici !
       message: results.length === 0 ? 'Aucun résultat trouvé.' : null,
       productsHtml
     });

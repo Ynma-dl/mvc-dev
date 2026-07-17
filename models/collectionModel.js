@@ -29,6 +29,32 @@ class CollectionModel {
         }
     
     }
+
+    static async getProductsByCollection(pool, collection) {
+
+        try {
+
+            const rows = await pool.query(
+                `
+                SELECT *
+                FROM products
+                WHERE FIND_IN_SET(?, REPLACE(category, ' ', ''))
+                OR FIND_IN_SET(?, REPLACE(category, ' ', ''))
+                `,
+                [
+                    collection.tag,
+                    collection.name
+                ]
+            );
+
+            return rows;
+
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = CollectionModel;

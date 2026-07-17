@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="/css/cart.css">
     <title>Checkout</title>
 </head>
 
@@ -16,7 +17,7 @@
         <div class="style-base-div">
             <!-- Icône retour -->
             <div id="back-div">
-                <a id="back-to-catalogue" href="http://localhost:5000/">
+                <a id="back-to-catalogue" href="javascript:history.back()">
                     <p><i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> <span
                             id="back-to-catalogue">Retour au catalogue</span></p>
                 </a>
@@ -31,7 +32,67 @@
 
         <div class="flex content-div">
 
-            <div class="recap-div"></div>
+            <div class="recap-div">
+
+                <h1>Récapitulatif de la commande</h1>
+                <div class="selcted-prduct">
+
+                    <div id="cart-items">
+
+                        <% cart.forEach(item=> { %>
+
+                            <div class="cart-item">
+
+                                <img src="<%= item.image %>">
+
+                                <div>
+                                    <h4>
+                                        <%= item.name %>
+                                    </h4>
+
+                                    <% if(item.optionsText) { %>
+                                        <p>
+                                            <%= item.optionsText %>
+                                        </p>
+                                        <% } %>
+
+                                            <p>
+                                                <%= item.quantity %> x
+                                                    <%= item.price %> FCFA
+                                            </p>
+
+                                </div>
+
+                            </div>
+
+                            <% }) %>
+
+                    </div>
+                </div>
+
+                <div class="cart-total">
+                    Total :
+                    <%= total %> FCFA
+                </div>
+
+                <div class="payout-notice">
+
+                    <h3>Instruction de paiement&nbsp;<i class="fa-solid fa-circle-check"></i></h3>
+                    <p>Paiement à la livraison<br>
+                        Livraison à vos frais
+                    </p>
+
+                </div>
+
+                <div class="waring">
+                    <h3><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Paiment sécurisé avec le vendeur</h3>
+                    <p>Le paiement se feras à la livraison ou sur WhatSapp avec vos moyen habituel(Wave, Orange
+                        Money ou
+                        Cash)</p>
+                </div>
+
+
+            </div>
 
             <div class="info-div">
 
@@ -107,7 +168,9 @@
         window.cartData = <%- JSON.stringify(cart) %>;
         window.cartTotal = <%= total %>;
     </script>
-    <script src="/js/checkout-message.js" defer></script>
+
+    <script src="/js/checkout-message.js"></script>>
+
 
 </body>
 

@@ -181,6 +181,7 @@ body {
     display: grid;
     gap: 30px;
     grid-template-columns: repeat(4, 1fr);
+    
 }
 
 .collection-img {
@@ -208,6 +209,7 @@ body {
     position: relative;
     left: 25%;
     right: auto;
+    color: var(--secondary-txt);
 
 }
 
@@ -333,6 +335,32 @@ body {
         height: 60vh;
     }
 
+}
+
+.search-sticker{
+    position:fixed;
+    right:24px;
+    bottom:100px;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    color:#F8FAFC;
+    display:flex;
+    justify-content:center;
+    background-color: #1E293B;
+    align-items:center;
+    cursor:pointer;
+    box-shadow:0 4px 16px rgba(0,0,0,.35);
+    z-index:1000;
+    transition:transform .2s ease;
+}
+
+.search-sticker:hover{
+    transform:scale(1.05);
+}
+
+.search-sticker i{
+    font-size:1.5rem;
 }
 
 .cart-sticker{

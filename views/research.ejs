@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     Résultats de recherche
     <% if (query) { %>
@@ -16,11 +17,12 @@
 
 <body>
 
-  <div class="head-div">
+  <!-- En-tête -->
+  <header class="head-div">
 
-    <!-- Icône retour -->
+    <!-- Icône retour dynamique -->
     <div id="back-div">
-      <a href="http://localhost:5000/" id="back-to-catalogue">
+      <a href="javascript:history.back()" id="back-to-catalogue">
         <p>
           <i class="fa-solid fa-arrow-left-long"></i>
           <span>Retour au catalogue</span>
@@ -28,6 +30,7 @@
       </a>
     </div>
 
+    <!-- Moteur de recherche -->
     <div class="form-div">
       <form action="/search" method="GET" class="search-form">
         <input
@@ -40,15 +43,17 @@
       </form>
     </div>
 
-  </div>
+  </header>
 
+  <!-- Section filtres -->
   <div class="filter-contain">
     <div class="filter-bar">
 
-      <span class="style-gray" style="margin: 0;">
-        <span class="result-amount">237</span>
+      <span class="style-gray">
+        <!-- Affiche le nombre réel de résultats -->
+        <span class="result-amount"><%= totalResults %></span>
         &nbsp;
-        résultat
+        <%= totalResults > 1 ? 'résultats' : 'résultat' %>
       </span>
 
       <button class="button-filter">
@@ -60,13 +65,15 @@
     </div>
   </div>
 
+  <!-- Titre de la page -->
   <div class="research-title">
     <% if (query) { %>
       <h1>Résultats pour "<%= query %>"</h1>
     <% } %>
   </div>
 
-  <div class="search-results">
+<!-- Conteneur des produits -->
+  <main class="search-results">
 
     <% if (message) { %>
       <p class="search-message">
@@ -78,13 +85,13 @@
 
       <%- productsHtml %>
 
-    <% } else { %>
+    <% } else { %> <!-- Le "}" manquant a été rajouté ici ! -->
 
-      <p>Aucun produit trouvé.</p>
+      <p class="search-message">Aucun produit trouvé.</p>
 
     <% } %>
 
-  </div>
+  </main>
 
 </body>
 
