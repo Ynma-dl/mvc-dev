@@ -1,48 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
-    <head>
+<head>
+    <meta charset="UTF-8">
+    <!-- Balise vitale pour que le mode responsive s'active sur les téléphones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Marque</title>
+
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
 
-    <body>
+<body>
 
-        <header class="category-header">
-            <nav class="category-nav">
-                <a href="http://localhost:5000/collection/new-arrivals">Nouveautés</a>
-                <a href="http://localhost:5000/collection/sneakers">Snakers</a>
-                <a href="http://localhost:5000/collection/jeans">Jeans</a>
-                <a href="http://localhost:5000/collection/chaussures">Chaussures</a>
-                <a href="http://localhost:5000/collection/accessoires">Accessoires</a>
-                <a href="http://localhost:5000/collection/summer-sales">Promotions</a>
-            </nav>
-        </header>
+    <!-- Navigation Desktop (Cachée sur mobile via le CSS) -->
+    <header class="category-header">
+        <nav class="category-nav">
+            <a href="http://localhost:5000/collection/new-arrivals">Nouveautés</a>
+            <a href="http://localhost:5000/collection/sneakers">Sneakers</a>
+            <a href="http://localhost:5000/collection/jeans">Jeans</a>
+            <a href="http://localhost:5000/collection/chaussures">Chaussures</a>
+            <a href="http://localhost:5000/collection/accessoires">Accessoires</a>
+            <a href="http://localhost:5000/collection/summer-sales">Promotions</a>
+        </nav>
+    </header>
 
-        <section class="hero-banner">
-            <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <h1>Nouvelle Ère</h1>
-                    <p>
-                        Découvrez notre collection exclusive pensée pour un style unique.
-                    </p>
-                    <a href="#" class="hero-btn">Découvrir la collection</a>
-                </div>
+    <!-- Banner -->
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Nouvelle Ère</h1>
+            <p>
+                Découvrez notre collection exclusive pensée pour un style unique.
+            </p>
+            <a href="#" class="hero-btn">Découvrir la collection</a>
+        </div>
+    </section>
+
+    <!-- Contenu Principal -->
+    <main class="main-content">
+        <section class="collection-section" id="1">
+            <%- html %>
         </section>
-        <main class="main-content">
-            <section class="collection-section" id="1">
 
-                <%- html %>
+        <%- showCase %>
+    </main>
 
-            </section>
-            
-            <%- showCase %>
+    <!-- Contenu Secondaire -->
+    <aside id="secondary-content">
+        <%- gridSelection %>
 
-        </main>
+        <div class="cart-container">
+            <!-- Le contenu de ton panier ira ici -->
+        </div>
+    </aside>
 
-        <aside id="secondary-content">
+    <!-- Pastille Panier Flottante (Desktop, cachée sur mobile) -->
+    <div class="cart-sticker">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="cart-count">0</span>
+    </div>
 
             <%- gridSelection %>
                 
@@ -57,36 +76,16 @@
             <span class="cart-count">0</span>
         </div>
 
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer-brand">
-                    <h3>Votre Marque</h3>
-                    <p>Une mode moderne pour une nouvelle ère.</p>
-                </div>
+        <div class="footer-bottom">
+            © 2026 Votre Marque. Tous droits réservés.
+        </div>
+    </footer>
 
-                <div class="footer-links">
-                    <h4>Navigation</h4>
-                    <a href="#">Nouveautés</a>
-                    <a href="#">Chaussures</a>
-                    <a href="#">Accessoires</a>
-                </div>
+    <%- include('partials/cart-popup') %>
 
-                <div class="footer-contact">
-                    <h4>Contact</h4>
-                    <p>contact@votremarque.com</p>
-                    <p>+225 XX XX XX XX</p>
-                </div>
-            </div>
+    <script src="/js/cart.js"></script>
+    <script src="/js/carousel.js"></script>
 
-            <div class="footer-bottom">
-                © 2026 Votre Marque. Tous droits réservés.
-            </div>
-        </footer>
-
-        <%- include('partials/cart-popup') %>
-        <script src="/js/cart.js"></script>
-        <script src="/js/carousel.js"></script>
-
-    </body>
+</body>
 
 </html>
