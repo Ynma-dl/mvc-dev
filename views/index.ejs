@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
 
 <body>
 
@@ -63,17 +63,46 @@
         <span class="cart-count">0</span>
     </div>
 
-            <%- gridSelection %>
-                
-        </aside>
-        <a href="http://localhost:5000/search" style="text-decoration: none;">
-            <div class="search-sticker">
-                <i class="fa-solid fa-search"></i>
+    <!-- ======================================================= -->
+    <!-- NOUVELLE NAVIGATION MOBILE (Visible uniquement sur mobile) -->
+    <!-- ======================================================= -->
+    <nav class="mobile-bottom-nav">
+        <a href="#" class="nav-item"><i class="fa-solid fa-bars"></i></a>
+        <a href="#" class="nav-item"><i class="fa-regular fa-user"></i></a>
+
+        <a href="#" class="nav-item search-btn">
+            <div class="search-circle">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </div>
         </a>
-        <div class="cart-sticker">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-count">0</span>
+
+        <a href="#" class="nav-item"><i class="fa-regular fa-heart"></i></a>
+        <a href="#" class="nav-item cart-item">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="nav-cart-badge">0</span>
+        </a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Votre Marque</h3>
+                <p>Une mode moderne pour une nouvelle ère.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="#">Nouveautés</a>
+                <a href="#">Chaussures</a>
+                <a href="#">Accessoires</a>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>contact@votremarque.com</p>
+                <p>+225 XX XX XX XX</p>
+            </div>
         </div>
 
         <div class="footer-bottom">

@@ -155,147 +155,7 @@ img {
     color: white;
 }
 
-/* --- SHOWCASE --- */
-
-.showcase-section{
-    padding: 50px;
-}
-
-.collection{
-    width: 100%;
-    height:450px;
-}
-
-.collection-showcase {
-    width: 100%;
-    padding: 60px;
-    display: grid;
-    gap: 30px;
-    grid-template-columns: repeat(4, 1fr);
-    
-}
-
-.collection-img {
-    width: 100%;
-    height: 450px;
-    background-size: cover;
-    background-position: center;
-}
-
-.title2{
-
-    margin-left:45px;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: var(--secondary-txt);
-    border-left: 5px solid var(--tertiary-accent);
-    padding-left: 15px;
-
-}
-
-.showcase-name{
-    margin-top: 5px;
-    width: 100%;
-    position: relative;
-    left: 25%;
-    right: auto;
-    color: var(--secondary-txt);
-
-}
-
-/* --- SUMMER SELECTION --- */
-.selection-grid{
-    width: 100%;
-    height: 500px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 250px 250px;
-    gap: 20px;
-    padding: 0 100px;
-}
-
-#d{
-    grid-row: span 2;
-}
-
-.selection-img{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 25px;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-}
-
-.selection-img::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        transparent 45%,
-        rgba(0,0,0,.75) 100%
-    );
-}
-
-.selection-name,
-.selection-img a{
-    position: relative;
-    z-index: 1;
-}
-
-/* Animations */
-@keyframes fadeDown {
-
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-@keyframes fadeUp {
-
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-/* Responsive */
-@media(max-width:768px){
-
-    .hero-banner {
-        height:350px;
-    }
-
-
-    .hero-content h1 {
-        font-size:2.5rem;
-    }
-
-
-    .hero-content p {
-        font-size:1rem;
-    }
-
-}
-
-/* Bouton principal */
+/* Bouton principal (CTA) */
 .cta-btn {
     background-color: var(--tertiary-accent);
     color: white;
@@ -747,49 +607,100 @@ img {
     }
 }
 
+/* Téléphones Mobiles (jusqu'à 768px) */
+@media (max-width: 768px) {
 
-.search-sticker{
-    position:fixed;
-    right:24px;
-    bottom:100px;
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    color:#F8FAFC;
-    display:flex;
-    justify-content:center;
-    background-color: #1E293B;
-    align-items:center;
-    cursor:pointer;
-    box-shadow:0 4px 16px rgba(0,0,0,.35);
-    z-index:1000;
-    transition:transform .2s ease;
-}
+    /* 1. Affichage de la Navigation Mobile */
+    .category-header { display: none; } /* Cache le menu classique */
+    .cart-sticker { display: none; } /* Cache la pastille panier classique */
+    .mobile-bottom-nav { display: flex; } /* Affiche la nouvelle nav du bas */
+    .mobile-section-header { display: flex; } /* Affiche l'en-tête "Summer Sales / Voir plus" */
 
-.search-sticker:hover{
-    transform:scale(1.05);
-}
+    /* Marge en bas pour ne pas cacher le contenu avec la nav fixe */
+    body {
+        padding-bottom: 90px;
+    }
 
-.search-sticker i{
-    font-size:1.5rem;
-}
+    /* 2. Hero Banner */
+    .hero-banner {
+        height: 350px;
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .hero-btn {
+        padding: 13px 28px;
+    }
 
-.cart-sticker{
-    position:fixed;
-    right:24px;
-    bottom:24px;
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    color:#F8FAFC;
-    display:flex;
-    justify-content:center;
-    background-color: #1E293B;
-    align-items:center;
-    cursor:pointer;
-    box-shadow:0 4px 16px rgba(0,0,0,.35);
-    z-index:1000;
-    transition:transform .2s ease;
+    /* 3. Grille Showcase (1 colonne) */
+    .collection-showcase {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    .collection-img,
+    .cloth-img {
+        height: 300px;
+    }
+    .showcase-name {
+        left: 0;
+        text-align: center;
+    }
+
+    /* 4. Grille de Sélection (Summer Selection) */
+    .selection-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding: 0 20px;
+        gap: 15px;
+    }
+    #d {
+        grid-row: auto; /* Retire l'extension sur 2 lignes pour mobile */
+    }
+    .selection-img {
+        height: 300px;
+    }
+
+    /* 5. Carousel */
+    .collection-section {
+        padding: 0 20px;
+    }
+    .collection-header {
+        flex-wrap: wrap;
+    }
+    .product-track .cloth-card {
+        width: 240px;
+        height: 350px;
+        flex: 0 0 240px;
+    }
+    .carousel-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+    }
+
+    /* 6. Typographie & Espacement */
+    .title1, .title2 {
+        font-size: 1.8rem;
+        margin-left: 0; /* Centre ou aligne mieux le titre sur mobile */
+    }
+    .showcase-section {
+        padding: 20px;
+    }
+
+    /* 7. Footer */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 40px 20px;
+    }
+    .footer-links,
+    .footer-contact {
+        align-items: center;
+    }
 }
 
 /* Petits Téléphones (jusqu'à 480px) */
@@ -880,146 +791,28 @@ img {
     }
 }
 
-.cart-sticker i{
-    font-size:1.5rem;
-}
-
-.cart-count{
-    position:absolute;
-    top:4px;
-    right:4px;
-    min-width:20px;
-    height:20px;
-    padding:0 4px;
-    border-radius:10px;
-    background:#5aff70;
-    color:#0B0F19;
-    font-size:.75rem;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.collection-section {
-    width: 100%;
-    margin: 40px 0;
-    padding: 0 70px;
-}
-
-
-.collection-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-
-.collection-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-
-.read-more {
-
-    text-decoration:none;
-
-    padding:10px 20px;
-
-    border-radius:25px;
-
-    background:var(--tertiary-accent);
-
-    color:var(--primary-bg);
-
-    font-weight:700;
-
-    text-transform:uppercase;
-
-    font-size:13px;
-
-    transition:.3s;
-
-}
-
-
-.read-more:hover {
-
-    transform:translateY(-3px);
-
-}
-
-.carousel-btn {
-
-    width:45px;
-    height:45px;
-
-    border:none;
-    border-radius:50%;
-
-    background:var(--card-bg);
-    color:var(--secondary-txt);
-
-    font-size:25px;
-
-    cursor:pointer;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    transition:.3s;
-}
-
-
-.carousel-btn:hover {
-
-    transform: scale(1.1);
-    background:var(--tertiary-accent);
-    color:var(--primary-bg);
-
-}
-
-
-/* Zone qui cache le surplus */
-
-.product-carousel {
-    width: 100%;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-
-}
-
-.product-carousel::-webkit-scrollbar {
-
-    display:none;
-
-}
-
-
-/* Contient toutes les cartes */
-
-.product-track {
-
-    display: flex;
-
-    gap: 20px;
-
-    width: max-content;
-
-}
-
-
-.product-track .cloth-card {
-
-    width: 280px;
-    height: 400px;
-
-    flex: 0 0 280px;
-
+/* Très petits écrans (jusqu'à 360px) */
+@media (max-width: 360px) {
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+    .hero-content p {
+        font-size: 0.85rem;
+    }
+    .title1, .title2 {
+        font-size: 1.3rem;
+    }
+    .product-track .cloth-card {
+        width: 180px;
+        height: 280px;
+        flex: 0 0 180px;
+    }
+    .mobile-bottom-nav {
+        padding: 8px 12px;
+    }
+    .search-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
 }
