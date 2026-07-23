@@ -9,12 +9,15 @@ const { displayCollectionShowcase } = require("./utils/function.js");
 const { displayCollectionSelection } = require("./utils/function.js");
 const PORT = 5000;
 const app = express();
-const cartRoutes = require('./routes/cart_route');
+const cartRoutes = require('./routes/cart_route.js');
 const collectionRoutes = require('./routes/collection_route.js');
 const searchRoutes = require('./routes/research_route.js');
 const checkoutRoutes = require('./routes/checkout_route.js');
 const productModel = new ProductModel(pool);
-
+const adminRoutes = require("./routes/admin_route.js");
+const productAdminRoutes = require("./routes/admin_product_route.js");
+const collectionAdminRoutes = require("./routes/admin_collection_route.js");
+const methodOverride = require("method-override");
 
 // Permet de servir CSS, images, JS
 
@@ -41,11 +44,17 @@ app.use((req, res, next) => {
     next();
 });
 
+
+app.use(methodOverride("_method"));
+
 app.use("/product", productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/collection', collectionRoutes)
 app.use('/', searchRoutes);
-app.use('/', checkoutRoutes)
+app.use('/', checkoutRoutes);
+app.use('/', adminRoutes);
+app.use("/", productAdminRoutes);
+app.use("/", collectionAdminRoutes);
 
 console.log(process.env.DB_HOST);
 console.log(process.env.DB_PORT);

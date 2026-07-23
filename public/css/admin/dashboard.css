@@ -1,0 +1,412 @@
+/* --- VARIABLES DE COULEURS --- */
+:root {
+    --primary-bg: #0B0F19;
+    --secondary-bg: #111827;
+    --card-bg: #1E293B;
+    --card-hover: #263449;
+
+    --secondary-txt: #F8FAFC;
+    --secondary-muted: #94A3B8;
+
+    --primary-accent: #5aff70;
+    --accent-hover: #3fe65a;
+
+    --border-color: #334155;
+    --input-bg: #172033;
+
+    --pedding: rgb(35, 35, 204);
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+
+    --font-sharp: "__Sharp_73163e", "__Sharp_Fallback_73163e";
+}
+
+.navBar{
+    display: flex;
+    color: var(--secondary-muted);
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--secondary-muted) solid;
+}
+
+#brandData {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65px;
+    
+}
+
+.notif-sticker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Taille fixe du conteneur icône, pas juste "fit-content" */
+    width: 32px;
+    height: 32px;
+}
+
+.notif-sticker i {
+    font-size: 16px;
+    color: inherit;
+}
+
+.notif-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+
+    background: #5aff70;
+    color: #0B0F19;
+
+    font-size: .7rem;
+    font-weight: 700;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px var(--card-bg, #1E293B);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.stat-card:hover {
+    background-color: var(--card-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Icône colorée en pastille */
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    color: #fff;
+}
+
+.icon-visitors { background-color: var(--primary-accent); color: var(--primary-bg); }
+.icon-revenue  { background-color: #22C55E; }
+.icon-cart     { background-color: var(--success); }
+.icon-time     { background-color: #0EA5E9; }
+
+/* Contenu texte */
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--secondary-muted);
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--secondary-txt);
+}
+
+/* Footer de la carte */
+.stat-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 12px;
+    color: var(--secondary-muted);
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.stat-footer i {
+    font-size: 11px;
+}
+
+/* Responsive : passe en 2 colonnes puis 1 sur petit écran */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.navBar-list{
+    list-style: none;
+    display: flex;
+}
+
+.navBar-list li{
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#bestSellerDiv {
+    margin-top: 35px;
+}
+
+#latestOrdersDiv{
+    margin-top: 20px;
+    height: 500px;
+    width: 100%;
+}
+
+#bestSellerDiv,
+#latestOrdersDiv {
+    display: none;
+}
+
+#bestSellerDiv.active,
+#latestOrdersDiv.active {
+    display: block;
+}
+
+.nav div {
+    cursor: pointer;
+}
+
+.nav div.active {
+    color: var(--tertiary-accent);
+}
+
+#productListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.productViewDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+
+    /* Le "surélement" demandé : ombre pour distinguer du fond */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.productViewDiv:hover {
+    background-color: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Miniature de l'image produit */
+.productImgWrap {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--input-bg);
+}
+
+.productImgWrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Infos texte */
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0; /* évite que le texte long casse le flex row */
+}
+
+.productName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-txt);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.productPrice {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-accent);
+}
+
+
+/* latest orders */
+
+#orderListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.orderViewDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.orderViewDiv:hover {
+    background-color: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Pastille d'état à la place de la miniature image */
+.orderStatusDot {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orderStatusDot::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 0 4px currentColor22;
+}
+
+.orderStatusDot.status-pending {
+    background-color: rgba(35, 35, 204, 0.374);
+    color: var(--pedding);
+    opacity: 0.9;
+}
+
+.orderStatusDot.status-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.orderStatusDot.status-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+/* Infos texte */
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.orderCustomer {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-txt);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.orderTotal {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-accent);
+}
+
+/* Badge de statut à droite */
+.orderStatusBadge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.orderStatusBadge.status-pending {
+    background-color: rgba(35, 35, 204, 0.15);
+    color: var(--pedding);
+}
+
+.orderStatusBadge.status-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.orderStatusBadge.status-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}

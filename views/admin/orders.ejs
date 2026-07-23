@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin/orders.css">
+    <title>Commandes</title>
+</head>
+<body>
+    
+    <%- include('../partials/adminNavBar.ejs') %>
+
+    <main>
+
+        <div class="navBar">
+            <h2>Commandes</h2>
+            <div id="brandData">
+                <i class="fa-solid fa-user"></i>
+                <div class="notif-sticker">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-contain">
+            <div class="filter-bar">
+                <button class="button-filter">
+                    <span>Filtrer</span>&nbsp;
+                    <span class="number-result-amount">0</span>
+                </button>
+
+                <button id="otpions"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+
+            </div>
+        </div>
+
+        <div id="statsDiv">
+            <span class="satatsItem" id="orderCount">Cammandes: 20</span>
+            <span class="statsItem" id="pendingCount">En attente: 4</span>
+            <span class="statsItem" id="shipCount">Expédiées: 3</span>
+            <span class="statsItem" id="cancled">Annulés: 2</span>
+            <span class="statsItem" id="CA">Chiffres d'affaire: 34567 FCFA</span>
+        </div>
+
+        <div id="orderListContainer">
+
+            <%- orders %>
+
+        </div>
+
+    </main>
+
+    <script>
+
+        const activeDiv = document.getElementById("orders");
+        activeDiv.classList.add("active");
+
+    </script>
+
+</body>
+</html>

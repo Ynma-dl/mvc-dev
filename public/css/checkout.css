@@ -283,3 +283,19 @@ main {
 .fa-whatsapp{
     font-size: x-large;
 }
+
+/* --- Responsive Adapté --- */
+
+@media (max-width: 1200px) {
+    
+}
+
+@media (max-width: 850px) {
+    
+}
+
+@media (max-width: 550px) {
+    .content-div{
+      flex-direction: column;
+    }
+}

@@ -241,36 +241,9 @@
 
     </script>
 
-    <%- include('partials/cart-popup') %>
     <script src="/js/cart.js"></script>
     <script src="/js/carousel.js"></script>
 
-    <script>
-    document.querySelector('.add-to-cart').addEventListener('click', async (e) => {
-        const btn = e.currentTarget;
-
-        const payload = {
-            id: btn.dataset.id,
-            name: btn.dataset.name,
-            price: Number(btn.dataset.price),
-            quantity: 1,
-            image: btn.dataset.image
-            // ajoute "options" ici si ton produit a des variantes (taille, couleur...)
-        };
-
-        const res = await fetch('/cart/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        const data = await res.json();
-        if (data.success) {
-            renderCart(data.cart);
-            updateCartSticker();
-        }
-    });
-</script>
 
 </body>
 </html>

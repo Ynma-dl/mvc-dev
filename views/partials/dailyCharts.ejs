@@ -1,0 +1,56 @@
+<!-- _charts_daily.php -->
+
+<div class="charts-grid">
+
+    <!-- VENTES DU JOUR -->
+    <div class="chart-card">
+        <div class="chart-canvas-wrap chart-sales">
+            <canvas id="chartSales"></canvas>
+        </div>
+        <div class="chart-info">
+            <h4 class="chart-title">Ventes du jour</h4>
+            <p class="chart-sub positive">
+                <i class="fa-solid fa-arrow-up"></i> 12% par rapport à hier
+            </p>
+            <span class="chart-updated" id="salesUpdated">
+                <i class="fa-regular fa-clock"></i>
+                mis à jour il y a quelques secondes
+            </span>
+        </div>
+    </div>
+
+    <!-- COMMANDES -->
+    <div class="chart-card">
+        <div class="chart-canvas-wrap chart-orders">
+            <canvas id="chartOrders"></canvas>
+        </div>
+        <div class="chart-info">
+            <h4 class="chart-title">Commandes</h4>
+            <p class="chart-sub">Performance des dernières 24h</p>
+            <span class="chart-updated" id="ordersUpdated">
+                <i class="fa-regular fa-clock"></i>
+                mis à jour il y a quelques secondes
+            </span>
+        </div>
+    </div>
+
+    <!-- VISITEURS -->
+    <div class="chart-card">
+        <div class="chart-canvas-wrap chart-visitors">
+            <canvas id="chartVisitors"></canvas>
+        </div>
+        <div class="chart-info">
+            <h4 class="chart-title">Visiteurs</h4>
+            <p class="chart-sub">Trafic du site aujourd'hui</p>
+            <span class="chart-updated" id="visitorsUpdated">
+                <i class="fa-regular fa-clock"></i>
+                mis à jour il y a quelques secondes
+            </span>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"></script>
+<script src="/js/dailyCharts.js"></script>

@@ -1,0 +1,274 @@
+/* --- VARIABLES DE COULEURS --- */
+:root {
+    --primary-bg: #0B0F19;
+    --secondary-bg: #111827;
+    --card-bg: #1E293B;
+    --card-hover: #263449;
+
+    --secondary-txt: #F8FAFC;
+    --secondary-muted: #94A3B8;
+
+    --primary-accent: #5aff70;
+    --accent-hover: #3fe65a;
+
+    --border-color: #334155;
+    --input-bg: #172033;
+
+    --pedding: rgb(35, 35, 204);
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+
+    --font-sharp: "__Sharp_73163e", "__Sharp_Fallback_73163e";
+}
+
+body {
+    margin: 0;
+    display: flex;
+    background-color: var(--primary-bg);
+    font-family: var(--font-sharp), sans-serif;
+}
+.navBar{
+    display: flex;
+    color: var(--secondary-muted);
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--secondary-muted) solid;
+}
+
+#brandData {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65px;
+    
+}
+
+.fa-user{
+    cursor: pointer;
+}
+
+.notif-sticker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Taille fixe du conteneur icône, pas juste "fit-content" */
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.notif-sticker i {
+    font-size: 16px;
+    color: inherit;
+}
+
+.notif-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+
+    background: #5aff70;
+    color: #0B0F19;
+
+    font-size: .7rem;
+    font-weight: 700;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px var(--card-bg, #1E293B);
+}
+
+.button-filter{
+    color: var(--secondary-txt);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-muted)
+}
+
+.filter-contain{
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.filter-bar{
+    max-width: 100%;
+    min-height: 46px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    width: 100%;
+   
+}
+
+.number-result-amount{
+    align-items: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    color: var(--secondary-muted);
+    line-height: 14px;
+    position: relative;
+    padding: 2px 5px;
+    margin: 0;
+}
+
+#otpions {
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-muted);
+    cursor: pointer;
+}
+
+#statsDiv {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    color: var(--secondary-txt);
+}
+#orderListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.orderViewDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.orderViewDiv:hover {
+    background-color: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Pastille d'état à la place de la miniature image */
+.orderStatusDot {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orderStatusDot::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 0 4px currentColor22;
+}
+
+.orderStatusDot.status-pending {
+    background-color: rgba(35, 35, 204, 0.374);
+    color: var(--pedding);
+    opacity: 0.9;
+}
+
+.orderStatusDot.status-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.orderStatusDot.status-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+/* Infos texte */
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.orderCustomer {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-txt);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.orderAddress {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-txt);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+}
+
+.orderTotal {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-accent);
+}
+
+/* Badge de statut à droite */
+.orderStatusBadge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.orderStatusBadge.status-pending {
+    background-color: rgba(35, 35, 204, 0.15);
+    color: var(--pedding);
+}
+
+.orderStatusBadge.status-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+}
+
+.orderStatusBadge.status-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}

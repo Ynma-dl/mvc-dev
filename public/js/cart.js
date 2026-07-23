@@ -83,8 +83,8 @@ const cartSticker = document.querySelector(".cart-sticker");
 
 if (cartSticker) {
     cartSticker.addEventListener("click", () => {
-        document.querySelector(".popup-overlay").classList.remove("hidden");
-        document.querySelector("#cart-popup").classList.remove("hidden");
+        document.querySelector(".popup-overlay").classList.toggle("hidden");
+        document.querySelector("#cart-popup").classList.toggle("hidden");
     });
 }
 

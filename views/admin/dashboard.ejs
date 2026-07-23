@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin/dashboard.css">
+    <link rel="stylesheet" href="../css/dailyCharts.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <%- include('../partials/adminNavBar.ejs') %>
+
+        <main>
+
+            <div class="navBar">
+                <h2>Dashboard</h2>
+                <div id="brandData">
+                    <i class="fa-solid fa-user"></i>
+                    <div class="notif-sticker">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notif-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-visitors">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Visiteurs</span>
+                        <span class="stat-value" id="visitors"></span>
+                    </div>
+                    <div class="stat-footer">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>Aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon icon-revenue">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Chiffre d'affaires</span>
+                        <span class="stat-value" id="CA"></span>
+                    </div>
+                    <div class="stat-footer">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon icon-cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Nombre de commandes</span>
+                        <span class="stat-value" id="odersCount"></span>
+                    </div>
+                    <div class="stat-footer">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon icon-time">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-label">Temps moyen</span>
+                        <span class="stat-value">3m 42s</span>
+                    </div>
+                    <div class="stat-footer">
+                        <i class="fa-solid fa-arrow-rotate-right"></i>
+                        <span>Mis à jour</span>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/dailyCharts.ejs') %>
+
+                <div id="infoDiv">
+                    <div class="navBar">
+                        <ul class="navBar-list">
+                            <li id="bestNav">Best-sellers</li>
+                            <li id="latestNav">Dernière commandes</li>
+                        </ul>
+                    </div>
+
+                    <div id="bestSellerDiv" class="active">
+
+                        <%- productHtml %>
+
+                    </div>
+                    <div id="latestOrdersDiv">
+
+                        <%- ordersHtml %>
+
+                    </div>
+                </div>
+
+        </main>
+
+        <script src="m/js/dailyCharts.js"></script>
+
+        <script>
+
+            const activeDiv = document.getElementById("dashboard");
+            activeDiv.classList.add("active");
+
+            const bestNav = document.getElementById("bestNav");
+            const latestNav = document.getElementById("latestNav");
+
+            const bestDiv = document.getElementById("bestSellerDiv");
+            const latestDiv = document.getElementById("latestOrdersDiv");
+
+
+            function switchTab(activeNav, activeDiv, inactiveNav, inactiveDiv) {
+                // Ajouter active au bouton et au contenu sélectionné
+                activeNav.classList.add("active");
+                activeDiv.classList.add("active");
+
+                // Retirer active de l'autre bouton et contenu
+                inactiveNav.classList.remove("active");
+                inactiveDiv.classList.remove("active");
+            }
+
+
+            // Clic sur Meilleures ventes
+            bestNav.addEventListener("click", () => {
+                switchTab(bestNav, bestDiv, latestNav, latestDiv);
+            });
+
+
+            // Clic sur Dernières commandes
+            latestNav.addEventListener("click", () => {
+                switchTab(latestNav, latestDiv, bestNav, bestDiv);
+            });
+
+        </script>
+
+
+</body>
+
+</html>
