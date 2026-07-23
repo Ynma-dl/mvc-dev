@@ -1,21 +1,36 @@
-/* --- VARIABLES DE COULEURS --- */
+/* --- VARIABLES DE COULEURS & DESIGN TOKENS --- */
 :root {
     --primary-bg: #0B0F19;
     --secondary-txt: #F8FAFC;
     --secondary-muted: #64748B;
     --tertiary-accent: #5aff70;
     --card-bg: #1E293B;
+
+    /* Cadre / grille du site : cohérent sur toutes les sections */
+    --container-max: 1320px;
+    --container-pad: clamp(24px, 6vw, 100px);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --smooth-transition: 0.3s ease;
+    --spring-transition: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Typographie éditoriale (façon maison de luxe) */
+    --font-display: 'Playfair Display', 'Segoe UI', serif;
+    --font-body: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --header-height: 64px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-body);
 }
 
 html {
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -24,6 +39,20 @@ body {
     overflow-x: hidden;
 }
 
+body.drawer-locked {
+    overflow: hidden;
+}
+
+/* Filet de sécurité global : tout lien sans classe spécifique hérite de la
+   palette du site au lieu du bleu souligné par défaut du navigateur
+   (c'est ce qui rendait "référence du streetwear" et les légendes de la
+   section ÉTÉ bleues et soulignées). */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
 img {
     max-width: 100%;
     display: block;
@@ -31,19 +60,20 @@ img {
 
 .title1 {
     grid-column: 1 / -1;
-    font-size: 2.5rem;
-    font-weight: 800;
+    font-size: 1.9rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
     color: var(--secondary-txt);
-    border-left: 5px solid var(--tertiary-accent);
-    padding-left: 15px;
+    border-left: 1px solid var(--tertiary-accent);
+    padding-left: 18px;
 }
 
 /* --- CARTES VÊTEMENTS --- */
 .cloth-card {
     background: var(--card-bg);
+    border-radius: var(--radius-md);
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
@@ -52,14 +82,15 @@ img {
 }
 
 .cloth-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: var(--tertiary-accent);
-    box-shadow: 0 20px 40px rgba(32, 29, 30, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
+/* Ratio fixe au lieu d'une hauteur en pixels : l'image garde ses proportions
+   à N'IMPORTE QUELLE largeur de colonne, sans jamais déborder du cadre. */
 .cloth-img {
     width: 100%;
-    height: 350px;
+    aspect-ratio: 3 / 4;
     background-size: cover;
     background-position: center;
     transition: transform 0.5s;
@@ -69,30 +100,33 @@ img {
     transform: scale(1.05);
 }
 
+/* Info produit en dessous de l'image (catalogue éditoriale),
+   plus dans une boîte sombre plaquée par-dessus la photo. */
 .cloth-info {
-    padding: 10px;
-    background: #1a1d1b;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    padding: 16px 4px 6px;
+    background: transparent;
 }
 
 .cloth-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 5px;
-    color: var(--tertiary-accent);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+    color: var(--secondary-txt);
 }
 
 .cloth-info p {
-    color: var(--tertiary-accent);
-    font-weight: bold;
+    color: var(--secondary-muted);
+    font-weight: 400;
+    font-size: 0.88rem;
+    letter-spacing: 0.3px;
 }
 
 /* --- HERO BANNER --- */
 .hero-banner {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: clamp(320px, 45vw, 480px);
     background-image: url('../images/image.jpg');
     background-size: cover;
     background-position: center;
@@ -102,7 +136,6 @@ img {
     overflow: hidden;
 }
 
-/* Couche sombre par-dessus l'image */
 .hero-overlay {
     position: absolute;
     inset: 0;
@@ -112,7 +145,6 @@ img {
     );
 }
 
-/* Contenu du banner */
 .hero-content {
     position: relative;
     z-index: 1;
@@ -123,91 +155,132 @@ img {
 }
 
 .hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 4.4rem);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
     animation: fadeDown 0.8s ease;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin-bottom: 35px;
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    line-height: 1.7;
+    margin-bottom: 38px;
     animation: fadeUp 1s ease;
 }
 
-/* Bouton Banner */
 .hero-btn {
     display: inline-block;
-    padding: 15px 35px;
-    background: white;
-    color: #111;
+    padding: 15px 40px;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.75);
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 2px;
     transition: all 0.3s ease;
 }
 
 .hero-btn:hover {
-    transform: translateY(-5px);
-    background: #111;
-    color: white;
+    background: white;
+    color: #111;
+    border-color: white;
 }
 
-/* Bouton principal (CTA) */
 .cta-btn {
-    background-color: var(--tertiary-accent);
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    background-color: transparent;
+    color: var(--secondary-txt);
+    border: 1px solid var(--tertiary-accent);
+    padding: 15px 30px;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
     margin-top: 40px;
-    transition: background 0.3s, transform 0.2s;
+    transition: background-color 0.3s, color 0.3s;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .cta-btn:hover {
-    background-color: #ff333a;
-    transform: translateY(-2px);
+    background-color: var(--tertiary-accent);
+    color: var(--primary-bg);
 }
 
 /* --- SHOWCASE --- */
 .showcase-section {
-    padding: 50px;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: clamp(50px, 8vw, 110px) var(--container-pad);
 }
 
-.collection {
-    width: 100%;
-    height: 450px;
-}
-
+/* minmax(0, 1fr) au lieu de 1fr : les colonnes peuvent enfin rétrécir
+   sous la largeur naturelle des images -> plus de débordement en tablette. */
 .collection-showcase {
     width: 100%;
-    padding: 60px;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: clamp(50px, 8vw, 100px) var(--container-pad);
     display: grid;
-    gap: 30px;
-    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(24px, 3vw, 44px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .collection-img {
     width: 100%;
-    height: 450px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-md);
     background-size: cover;
     background-position: center;
 }
 
+/* Bloc "showCase" à une seule photo : traité comme une bannière éditoriale
+   large avec dégradé + texte, au lieu d'une simple photo au format carte
+   produit (3:4) qui écrasait le visuel. */
+.collection {
+    position: relative;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    aspect-ratio: 21 / 8;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.collection::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
+    pointer-events: none;
+}
+
+.collection .collection-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    border-radius: 0;
+}
+
 .title2 {
     margin-left: 45px;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 24px;
     color: var(--secondary-txt);
-    border-left: 5px solid var(--tertiary-accent);
+    border-left: 1px solid var(--tertiary-accent);
     padding-left: 15px;
 }
 
@@ -222,12 +295,13 @@ img {
 /* --- SUMMER SELECTION --- */
 .selection-grid {
     width: 100%;
-    height: 500px;
+    max-width: var(--container-max);
+    margin-inline: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 250px 250px;
-    gap: 20px;
-    padding: 0 100px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: clamp(200px, 25vw, 260px) clamp(200px, 25vw, 260px);
+    gap: clamp(16px, 2.5vw, 30px);
+    padding: 0 var(--container-pad);
 }
 
 #d {
@@ -241,6 +315,7 @@ img {
     justify-content: flex-end;
     padding: 25px;
     overflow: hidden;
+    border-radius: var(--radius-md);
     height: 100%;
     width: 100%;
 }
@@ -261,11 +336,38 @@ img {
     z-index: 1;
 }
 
+.selection-name {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--secondary-txt);
+    margin-bottom: 6px;
+}
+
+.selection-img a {
+    display: inline-block;
+    color: var(--secondary-txt);
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid var(--tertiary-accent);
+    padding-bottom: 2px;
+    transition: opacity 0.3s ease;
+}
+
+.selection-img a:hover {
+    opacity: 0.65;
+}
+
 /* --- CAROUSEL PRODUITS --- */
 .collection-section {
     width: 100%;
-    margin: 40px 0;
-    padding: 0 40px;
+    max-width: var(--container-max);
+    margin: clamp(40px, 6vw, 90px) auto;
+    padding: 0 var(--container-pad);
 }
 
 .collection-header {
@@ -273,7 +375,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: clamp(24px, 3vw, 38px);
     gap: 15px;
 }
 
@@ -285,40 +387,43 @@ img {
 
 .read-more {
     text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    background: var(--tertiary-accent);
-    color: var(--primary-bg);
-    font-weight: 700;
+    padding: 9px 22px;
+    border-radius: 2px;
+    background: transparent;
+    border: 1px solid var(--tertiary-accent);
+    color: var(--secondary-txt);
+    font-weight: 500;
     text-transform: uppercase;
-    font-size: 13px;
-    transition: .3s;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    transition: 0.3s;
     white-space: nowrap;
 }
 
 .read-more:hover {
-    transform: translateY(-3px);
+    background: var(--tertiary-accent);
+    color: var(--primary-bg);
 }
 
 .carousel-btn {
-    width: 45px;
-    height: 45px;
-    border: none;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(248, 250, 252, 0.15);
     border-radius: 50%;
-    background: var(--card-bg);
+    background: transparent;
     color: var(--secondary-txt);
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: .3s;
+    transition: 0.3s;
     flex-shrink: 0;
 }
 
 .carousel-btn:hover {
-    transform: scale(1.1);
     background: var(--tertiary-accent);
+    border-color: var(--tertiary-accent);
     color: var(--primary-bg);
 }
 
@@ -335,58 +440,47 @@ img {
 
 .product-track {
     display: flex;
-    gap: 20px;
+    gap: clamp(16px, 2vw, 28px);
     width: max-content;
 }
 
+/* Filet de sécurité : si les partials dynamiques (html/showCase/gridSelection)
+   utilisent de vraies balises <img> au lieu de divs en background-image,
+   celles-ci sont forcées à remplir leur cadre proprement (jamais déborder). */
+.cloth-card img,
+.collection-img img,
+.selection-img img,
+.collection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Largeur fixée (nécessaire pour le défilement horizontal), hauteur
+   automatique : dérivée du aspect-ratio de .cloth-img, jamais désynchronisée. */
 .product-track .cloth-card {
     width: 280px;
-    height: 400px;
     flex: 0 0 280px;
 }
 
-/* --- CART STICKER (Desktop) --- */
-.cart-sticker {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    color: #F8FAFC;
-    display: flex;
-    justify-content: center;
-    background-color: #1E293B;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0,0,0,.35);
-    z-index: 1000;
-    transition: transform .2s ease;
-}
-
-.cart-sticker:hover {
-    transform: scale(1.05);
-}
-
-.cart-sticker i {
-    font-size: 1.5rem;
-}
-
+/* --- CART BADGE (dans le bouton panier du bandeau haut) --- */
 .cart-count {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    min-width: 20px;
-    height: 20px;
+    top: -2px;
+    right: -4px;
+    min-width: 17px;
+    height: 17px;
     padding: 0 4px;
     border-radius: 10px;
-    background: #5aff70;
-    color: #0B0F19;
-    font-size: .75rem;
+    background: var(--tertiary-accent);
+    color: var(--primary-bg);
+    font-size: .65rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid var(--primary-bg);
 }
 
 /* --- ANIMATIONS --- */
@@ -402,84 +496,213 @@ img {
 
 
 /* ==========================================================================
-   NOUVELLE NAVIGATION MOBILE (Inspirée de la photo)
+   HEADER — bandeau haut minimaliste, sticky, façon maison de luxe
+   Logo centré, icônes réparties de part et d'autre (recherche/menu à
+   gauche, compte/panier à droite). Sous-navigation catégories en dessous
+   sur desktop ; remplacée par un tiroir (drawer) sur mobile.
    ========================================================================== */
 
-.mobile-bottom-nav {
-    display: none; /* Cachée par défaut sur PC */
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
-    background-color: var(--card-bg);
-    border: 1px solid rgba(248, 250, 252, 0.08);
-    border-radius: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    z-index: 2000;
-    padding: 10px 25px;
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 3000;
+    background: rgba(11, 15, 25, 0.78);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid rgba(248, 250, 252, 0.07);
+}
+
+.site-header-inner {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    height: var(--header-height);
+    padding: 0 var(--container-pad);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
 }
 
-.nav-item {
-    color: var(--secondary-muted);
-    font-size: 1.4rem;
+.header-side {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.header-side-left { justify-self: start; }
+.header-side-right { justify-self: end; }
+
+.header-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--secondary-txt);
     text-decoration: none;
+    font-size: 1.02rem;
+    cursor: pointer;
     position: relative;
-    transition: color 0.3s;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.nav-item:hover {
+.header-icon-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08);
     color: var(--tertiary-accent);
 }
 
-/* Bouton Central (Recherche) */
-.nav-item.search-btn {
-    transform: translateY(-20px);
+.menu-toggle {
+    display: none; /* réapparaît en dessous de 900px, la sous-nav prend le relais au-dessus */
 }
 
-.search-circle {
-    background-color: var(--tertiary-accent);
-    color: var(--primary-bg);
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
+.site-logo {
+    justify-self: center;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--secondary-txt);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.site-subnav {
+    max-width: var(--container-max);
+    margin-inline: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    box-shadow: 0 8px 20px rgba(90, 255, 112, 0.4);
-    transition: transform 0.2s;
+    gap: 36px;
+    padding: 13px var(--container-pad);
+    border-top: 1px solid rgba(248, 250, 252, 0.06);
 }
 
-.search-circle:hover {
-    transform: scale(1.05);
+.site-subnav a {
+    color: var(--secondary-muted);
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.25s ease;
 }
 
-/* Badge du Panier dans la nav mobile */
-.cart-item .nav-cart-badge {
+.site-subnav a::after {
+    content: "";
     position: absolute;
-    top: -5px;
-    right: -8px;
-    background-color: var(--tertiary-accent);
-    color: var(--primary-bg);
-    font-size: 0.65rem;
-    font-weight: bold;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--tertiary-accent);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.site-subnav a:hover {
+    color: var(--secondary-txt);
+}
+
+.site-subnav a:hover::after {
+    width: 100%;
+}
+
+/* --- Tiroir mobile (catégories) --- */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 82%;
+    max-width: 340px;
+    background: rgba(20, 26, 40, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.5);
+    z-index: 4000;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer.is-open {
+    transform: translateX(0);
+}
+
+.mobile-drawer-header {
+    display: flex;
     align-items: center;
-    border: 2px solid var(--card-bg);
+    justify-content: space-between;
+    padding-bottom: 22px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(248, 250, 252, 0.08);
+}
+
+.mobile-drawer-header .site-logo {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.mobile-drawer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-drawer-nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 10px;
+    color: var(--secondary-txt);
+    text-decoration: none;
+    font-size: 0.98rem;
+    letter-spacing: 0.4px;
+    border-radius: 10px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.mobile-drawer-nav a i {
+    width: 20px;
+    text-align: center;
+    color: var(--tertiary-accent);
+    font-size: 0.92rem;
+}
+
+.mobile-drawer-nav a:hover,
+.mobile-drawer-nav a:active {
+    background-color: rgba(90, 255, 112, 0.08);
+}
+
+.drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 3500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-drawer { transition: none; }
+    .drawer-backdrop { transition: none; }
 }
 
 /* ==========================================================================
    EN-TÊTE DE SECTION MOBILE (ex: "Summer Sales" / "Voir plus")
-   À utiliser dans tes partials (gridSelection, etc.) pour chaque collection
-   affichée sous forme de bloc sur mobile.
    Markup attendu :
    <div class="mobile-section-header">
        <h2>Summer Sales</h2>
@@ -495,102 +718,413 @@ img {
 }
 
 .mobile-section-header h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
     color: var(--secondary-txt);
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
 }
 
 .mobile-section-header .voir-plus {
     text-decoration: none;
-    padding: 6px 16px;
-    border-radius: 20px;
-    background: var(--tertiary-accent);
-    color: var(--primary-bg);
-    font-weight: 700;
-    font-size: 0.7rem;
+    padding: 6px 15px;
+    border-radius: 2px;
+    background: transparent;
+    border: 1px solid var(--tertiary-accent);
+    color: var(--secondary-txt);
+    font-weight: 500;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     white-space: nowrap;
     transition: .3s;
 }
 
 .mobile-section-header .voir-plus:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    background: var(--tertiary-accent);
+    color: var(--primary-bg);
 }
 
-/* --- FOOTER --- */
-.footer-container {
+/* =========================================
+   FOOTER — LAYOUT & GLOW
+========================================= */
+.footer {
+    background-color: var(--primary-bg);
+    color: var(--secondary-txt);
+    font-family: system-ui, -apple-system, sans-serif;
+    position: relative;
+    padding-top: 40px;
+    overflow: hidden;
+}
+
+.footer-glow-line {
     width: 100%;
+    height: 1px;
+    background: rgba(248, 250, 252, 0.08);
+    margin-bottom: 50px;
+}
+
+.footer-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 40px;
+    padding: 0 var(--container-pad) 60px var(--container-pad);
+}
+
+/* =========================================
+   MARQUE & TYPO
+========================================= */
+.brand-title {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+.neon-dot {
+    color: var(--tertiary-accent);
+    text-shadow: 0 0 10px var(--tertiary-accent);
+}
+
+.brand-desc {
+    color: var(--secondary-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    max-width: 300px;
+}
+
+/* =========================================
+   ICÔNES RÉSEAUX
+========================================= */
+.social-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
-    padding: 50px 40px;
+    gap: 14px;
 }
 
-.footer-brand,
-.footer-links,
-.footer-contact {
-    flex: 1 1 200px;
-}
-
-.footer-links,
-.footer-contact {
+.social-card {
+    width: 52px;
+    height: 52px;
+    background: rgba(90, 255, 112, 0.08);
+    border: 1px solid rgba(90, 255, 112, 0.25);
+    border-radius: 14px;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-txt);
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    transition: var(--spring-transition);
+    position: relative;
+    flex-shrink: 0;
 }
 
-.footer-links a,
-.footer-contact p {
+.social-card i {
+    font-size: 1.4rem;
+    line-height: 1;
+    transition: var(--smooth-transition);
+}
+
+.social-card:hover {
+    transform: translateY(-4px);
+    background: var(--tertiary-accent);
+    color: var(--primary-bg);
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 8px 18px rgba(90, 255, 112, 0.25);
+}
+
+.social-card:hover i {
+    transform: scale(1.08);
+}
+
+/* =========================================
+   NAVIGATION & LIENS
+========================================= */
+.column-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--secondary-txt);
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+.footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-list li {
+    margin-bottom: 14px;
+}
+
+.footer-links-list a {
+    color: var(--secondary-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--smooth-transition);
+}
+
+.link-badge {
+    font-size: 0.65rem;
+    background: rgba(90, 255, 112, 0.12);
+    color: var(--tertiary-accent);
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(90, 255, 112, 0.3);
+}
+
+.footer-links-list a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: var(--tertiary-accent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: var(--spring-transition);
+    box-shadow: 0 0 8px var(--tertiary-accent);
+}
+
+.footer-links-list a:hover {
+    color: var(--secondary-txt);
+    transform: translateX(4px);
+}
+
+.footer-links-list a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* =========================================
+   SECTION CONTACT
+========================================= */
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-info p a, .contact-info .phone-number {
+    color: var(--secondary-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: var(--smooth-transition);
+}
+
+.contact-info p a:hover {
+    color: var(--tertiary-accent);
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--secondary-muted);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--tertiary-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--tertiary-accent);
+    animation: pulse 2.4s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* =========================================
+   NEWSLETTER CARD
+========================================= */
+.newsletter-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 26px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    min-width: 0;
+}
+
+.newsletter-header p {
+    color: var(--secondary-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    display: flex;
+    position: relative;
+    background: rgba(11, 15, 25, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    padding: 4px;
+    transition: var(--smooth-transition);
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 0 12px rgba(90, 255, 112, 0.12);
+}
+
+.input-wrapper input {
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 14px;
+    color: var(--secondary-txt);
+    font-size: 0.9rem;
+}
+
+.input-wrapper input::placeholder {
     color: var(--secondary-muted);
 }
 
+.input-wrapper button {
+    background: var(--tertiary-accent);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--primary-bg);
+    transition: var(--spring-transition);
+    flex-shrink: 0;
+}
+
+.input-wrapper button i {
+    font-size: 1rem;
+    transition: var(--smooth-transition);
+}
+
+.input-wrapper button:hover {
+    box-shadow: 0 0 10px rgba(90, 255, 112, 0.35);
+}
+
+.input-wrapper button:hover i {
+    transform: translateX(3px);
+}
+
+/* =========================================
+   BOTTOM BAR
+========================================= */
 .footer-bottom {
-    text-align: center;
-    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px var(--container-pad);
+    margin-top: 20px;
+}
+
+.footer-bottom-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
     color: var(--secondary-muted);
     font-size: 0.85rem;
 }
 
+.legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-/* ==========================================================================
-   MEDIA QUERIES (RESPONSIVE DESIGN)
-   ========================================================================== */
+.legal-links a {
+    color: var(--secondary-muted);
+    text-decoration: none;
+    transition: var(--smooth-transition);
+}
 
-/* Grands écrans / Petits laptops (jusqu'à 1200px) */
-@media (max-width: 1200px) {
-    .collection-showcase {
-        padding: 45px;
-        gap: 24px;
+.legal-links a:hover {
+    color: var(--tertiary-accent);
+}
+
+/* =========================================
+   FOOTER — MEDIA QUERIES
+========================================= */
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 32px;
     }
-    .selection-grid {
-        padding: 0 60px;
+    .brand-desc {
+        max-width: 100%;
     }
 }
+
+@media (max-width: 640px) {
+    .footer {
+        padding-top: 24px;
+    }
+    .footer-glow-line {
+        margin-bottom: 30px;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-bottom: 30px;
+    }
+    .newsletter-card {
+        padding: 20px;
+    }
+    .footer-bottom-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .legal-links {
+        justify-content: center;
+    }
+}
+
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE DESIGN) — reste du site
+   Le cadre (max-width + padding fluide) et les ratios d'image étant gérés
+   par les variables ci-dessus, ces breakpoints ne portent plus que sur les
+   changements STRUCTURELS (nb de colonnes, empilement, tailles de texte).
+   ========================================================================== */
 
 /* Tablettes & Petits Écrans (jusqu'à 1024px) */
 @media (max-width: 1024px) {
     .collection-showcase {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 40px;
-    }
-    .selection-grid {
-        padding: 0 40px;
-        height: auto;
-    }
-    .collection-img,
-    .cloth-img {
-        height: 320px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .showcase-name {
         left: 15%;
     }
 }
 
-/* Transition de structure principale (jusqu'à 900px) */
+/* Transition (jusqu'à 900px) */
 @media (max-width: 900px) {
     .main-container {
         flex-direction: column;
@@ -599,38 +1133,31 @@ img {
     .gallery-section {
         height: 60vh;
     }
-    .hero-content h1 {
-        font-size: 3rem;
+
+    /* Le bandeau haut passe en mode "hamburger" : la sous-nav catégories
+       disparaît, remplacée par le tiroir ouvert via le bouton menu. */
+    .menu-toggle {
+        display: flex;
     }
-    .selection-grid {
-        grid-template-rows: 220px 220px;
+    .site-subnav {
+        display: none;
+    }
+    .site-header-inner {
+        padding: 0 20px;
+        height: 58px;
+    }
+    .site-logo {
+        font-size: 1.05rem;
+        letter-spacing: 2px;
     }
 }
 
 /* Téléphones Mobiles (jusqu'à 768px) */
 @media (max-width: 768px) {
 
-    /* 1. Affichage de la Navigation Mobile */
-    .category-header { display: none; } /* Cache le menu classique */
-    .cart-sticker { display: none; } /* Cache la pastille panier classique */
-    .mobile-bottom-nav { display: flex; } /* Affiche la nouvelle nav du bas */
-    .mobile-section-header { display: flex; } /* Affiche l'en-tête "Summer Sales / Voir plus" */
-
-    /* Marge en bas pour ne pas cacher le contenu avec la nav fixe */
-    body {
-        padding-bottom: 90px;
-    }
+    .mobile-section-header { display: flex; }
 
     /* 2. Hero Banner */
-    .hero-banner {
-        height: 350px;
-    }
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
     .hero-btn {
         padding: 13px 28px;
     }
@@ -638,11 +1165,6 @@ img {
     /* 3. Grille Showcase (1 colonne) */
     .collection-showcase {
         grid-template-columns: 1fr;
-        padding: 20px;
-    }
-    .collection-img,
-    .cloth-img {
-        height: 300px;
     }
     .showcase-name {
         left: 0;
@@ -653,26 +1175,21 @@ img {
     .selection-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        padding: 0 20px;
         gap: 15px;
     }
     #d {
-        grid-row: auto; /* Retire l'extension sur 2 lignes pour mobile */
+        grid-row: auto;
     }
     .selection-img {
         height: 300px;
     }
 
     /* 5. Carousel */
-    .collection-section {
-        padding: 0 20px;
-    }
     .collection-header {
         flex-wrap: wrap;
     }
     .product-track .cloth-card {
         width: 240px;
-        height: 350px;
         flex: 0 0 240px;
     }
     .carousel-btn {
@@ -681,44 +1198,21 @@ img {
         font-size: 20px;
     }
 
-    /* 6. Typographie & Espacement */
+    /* 6. Typographie */
     .title1, .title2 {
         font-size: 1.8rem;
-        margin-left: 0; /* Centre ou aligne mieux le titre sur mobile */
-    }
-    .showcase-section {
-        padding: 20px;
-    }
-
-    /* 7. Footer */
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-        padding: 40px 20px;
-    }
-    .footer-links,
-    .footer-contact {
-        align-items: center;
+        margin-left: 0;
     }
 }
 
 /* Petits Téléphones (jusqu'à 480px) */
 @media (max-width: 480px) {
 
-    .hero-banner {
-        height: 300px;
-    }
     .hero-content {
         padding: 15px;
     }
     .hero-content h1 {
-        font-size: 2rem;
         letter-spacing: 1px;
-    }
-    .hero-content p {
-        font-size: 0.9rem;
-        margin-bottom: 25px;
     }
     .hero-btn {
         padding: 12px 24px;
@@ -731,10 +1225,6 @@ img {
         padding-left: 10px;
     }
 
-    .collection-img,
-    .cloth-img {
-        height: 260px;
-    }
     .cloth-info h3 {
         font-size: 1.1rem;
     }
@@ -746,7 +1236,6 @@ img {
 
     .product-track .cloth-card {
         width: 200px;
-        height: 300px;
         flex: 0 0 200px;
     }
 
@@ -760,23 +1249,17 @@ img {
         font-size: 18px;
     }
 
-    .mobile-bottom-nav {
-        width: 94%;
-        padding: 8px 16px;
-        bottom: 15px;
+    .site-header-inner {
+        padding: 0 14px;
     }
-    .nav-item {
-        font-size: 1.2rem;
+    .header-icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
     }
-    .search-circle {
-        width: 55px;
-        height: 55px;
-        font-size: 1.3rem;
-    }
-
-    .footer-container {
-        padding: 30px 15px;
-        gap: 20px;
+    .site-logo {
+        font-size: 0.9rem;
+        letter-spacing: 1.5px;
     }
 
     .mobile-section-header {
@@ -793,26 +1276,11 @@ img {
 
 /* Très petits écrans (jusqu'à 360px) */
 @media (max-width: 360px) {
-    .hero-content h1 {
-        font-size: 1.6rem;
-    }
-    .hero-content p {
-        font-size: 0.85rem;
-    }
-    .title1, .title2 {
-        font-size: 1.3rem;
-    }
     .product-track .cloth-card {
         width: 180px;
-        height: 280px;
         flex: 0 0 180px;
     }
-    .mobile-bottom-nav {
-        padding: 8px 12px;
-    }
-    .search-circle {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+    .site-logo {
+        display: none; /* laisse toute la place aux icônes sur les très petits écrans */
     }
 }
