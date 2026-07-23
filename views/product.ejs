@@ -3,247 +3,245 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- Charger Font Awesome -->
+    <title><%= product.name %> - Détails</title>
+    
+    <!-- Polices et Icônes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <title>Page produit</title>
+    
+    <!-- Lien vers le fichier CSS -->
     <link rel='stylesheet' href='/css/product.css'>
 </head>
 <body>
     
-    <main class="main-content">
+    <!-- Header avec bouton retour et bouton panier -->
+    <header class="page-header">
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Retour
+        </a>
+        <button class="cart-trigger" id="open-cart-btn">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-badge">0</span>
+        </button>
+    </header>
 
-<!-- Icône retour -->
-<div id="back-div">
-   <a id="back-to-catalogue" href="javascript:history.back()">
-      <p>
-         <i class="fa-solid fa-arrow-left-long" id="back-to-catalogue"></i> 
-         <span id="back-to-catalogue">Retour au catalogue</span>
-      </p>
-   </a>
-</div>
-
-        <section class="grid-product">
-            <div class="product-imgs-div">
-
-                <div id="main-img">
-                    <img src="<%= product_imgs[0] %>" alt="Image principale du produit">
-                </div>
-
-                <div id="other-imgs">
-                    <% for (let i = 1; i < product_imgs.length; i++) { %>
-                        <div class="other-img-div">
-                            <img src="<%= product_imgs[i] %>" alt="Image miniature du produit">
-                        </div>
-                    <% } %>
-                </div>
-
+    <main class="grid-product">
+        
+        <!-- SECTION GAUCHE : Images -->
+        <div class="product-imgs-div">
+            <div id="main-img">
+                <img src="<%= product_imgs[0] %>" alt="Image principale">
             </div>
+            <div id="other-imgs">
+                <div class="other-img-div active">
+                    <img src="<%= product_imgs[0] %>" alt="Miniature principale">
+                </div>
+                <% for (let i = 1; i < product_imgs.length; i++) { %>
+                    <div class="other-img-div">
+                        <img src="<%= product_imgs[i] %>" alt="Miniature">
+                    </div>
+                <% } %>
+            </div>
+        </div>
 
-            <script>
-                const mainImg = document.querySelector("#main-img img");
+        <!-- SECTION DROITE : Informations -->
+        <div class="product-info-div">
 
-                document.querySelectorAll(".other-img-div img").forEach(img => {
-
-                    img.addEventListener("click", () => {
-
-                        const temp = mainImg.src;
-
-                        mainImg.src = img.src;
-                        img.src = temp;
-
-                    });
-
-                });
-            </script>
-
-            <div class="product-info-div">
-
-                <div id="is_dispo"><i class="fa-solid fa-circle"></i> Disponible</div>
-
+            <!-- En-tête du produit -->
+            <div>
+                <div id="is_dispo" class="badge dispo">
+                    <i class="fa-solid fa-check"></i> En stock (<%= product.stock %> restants)
+                </div>
                 <h1 id="name"><%= product.name %></h1>
                 <h2 id="price"><%= product.price %> FCFA</h2>
-                <h4 id="option">Options</h4>
+            </div>
+            
+            <p class="description"><%= product.description %></p>
+
+            <!-- Options Dynamiques -->
+            <% if (typeof optionsHTML !== 'undefined' && optionsHTML) { %>
                 <div class="options-container">
+                    <h4>Options disponibles :</h4>
                     <%- optionsHTML %>
                 </div>
+            <% } %>
 
+            <!-- Contrôles d'Achat -->
+            <div class="purchase-controls">
                 <div class="quantity-control">
+                    <button class="minus"><i class="fa-solid fa-minus"></i></button>
+                    <span class="quantity">1</span>
+                    <button class="plus"><i class="fa-solid fa-plus"></i></button>
+                </div>
 
-                <button class="minus">-</button>
-
-                <span class="quantity">1</span>
-
-                <button class="plus">+</button>
-
-            </div>
-                <h3>Description</h3>
-                <p id="description-place"><%= product.description %></p>
-                <p>stock: <%= product.stock %></p>
-                <p>Catégorie: <%= product.category %></p>
-                
                 <button 
                     class="add-to-cart"
                     data-id="<%= product.id %>"
                     data-name="<%= product.name %>"
                     data-price="<%= product.price %>"
-                    data-quantity=""
                     data-image="<%= product_imgs[0] %>">
-                    
-                    <i class="fa-solid fa-cart-arrow-down"></i>
-                    <span>Add to cart</span>
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Ajouter au panier</span>
                 </button>
-                <p id="comment"><i class="fa-regular fa-clock"></i> Reponse rapide du vendeur (souvent 5min)</p>
-                <div id="shipping-info">
-                    <h4><i class="fa-solid fa-truck"></i> Livraison</h4>
-
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-                    <div class="location-div">
-                        <p class="location"><i class="fa-solid fa-location-dot"></i>Abidjan</p>
-                        <p class="shipping-price">1500 FCFA</p>
-
-                    </div>
-
             </div>
 
-            <div class="payement-notice">
+            <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">
+                <i class="fa-regular fa-clock"></i> Le vendeur répond généralement en moins de 5 minutes.
+            </p>
 
-                <h4>instruction de paiement</h4>
-                <p>paiement à la livraison <i class="fa-solid fa-circle-check"></i></p>
-                <p>Livraison à vos frais</p>
+            <!-- Cartes d'informations (Livraison, Paiement, Fonctionnement) -->
+            <div class="info-cards-grid">
+                
+                <div class="info-card">
+                    <h4><i class="fa-solid fa-truck-fast"></i> Options de livraison</h4>
+                    <div class="location-div">
+                        <span><i class="fa-solid fa-location-dot"></i> Abidjan (Standard)</span>
+                        <strong>1500 FCFA</strong>
+                    </div>
+                    <div class="location-div">
+                        <span><i class="fa-solid fa-map-location-dot"></i> Hors Abidjan</span>
+                        <strong>Sur devis</strong>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fa-solid fa-shield-halved"></i> Paiement sécurisé</h4>
+                    <p><i class="fa-solid fa-hand-holding-dollar" style="color: var(--accent-color);"></i> Vous ne payez qu'à la livraison.</p>
+                    <p><i class="fa-solid fa-mobile-screen"></i> Paiement accepté par espèces ou Mobile Money.</p>
+                </div>
 
             </div>
-
-            <div id="how-working">
-                <p><i class="fa-solid fa-clipboard"></i> Comment ça marche ?</p>
-                <p><span class="step">1</span> Cliquez sur "Commander" pour passer au paiement</p>
-                <p><span class="step">2</span> Le vendeur reçois une commande ur WhatsApp et vous livre</p>
-                <p><span class="step">3</span> vous payer à la livraison avec vos moyen habituel(Mobile money, carte de crédit)</p>
-
-            </div>
-
-        </section>
-
+        </div>
     </main>
 
-    <script>
+    <!-- NOUVEAU TIROIR DU PANIER (CART DRAWER) -->
+    <!-- (Remplace ton ancien `<%- include('partials/cart-popup') %>`) -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h2>Votre Panier</h2>
+            <button class="close-cart" id="close-cart-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
         
-        const is_dispo = document.getElementById("is_dispo");
-        const optionGroups = document.querySelectorAll(".option-div");
-        const selectedOptions = {};
-        const addCartBtn = document.querySelector(".add-to-cart");
-        const minus = document.querySelector(".minus");
-        const plus = document.querySelector(".plus");
-        const quantity = document.querySelector(".quantity");
+        <div class="cart-body" id="cart-items-container">
+            <!-- Exemple d'un item stylisé (sera généré par ton JS) -->
+            <p style="text-align:center; color: var(--text-muted); margin-top: 20px;">Votre panier est vide.</p>
+        </div>
 
-        plus.addEventListener("click", () => {
-            quantity.textContent = Number(quantity.textContent) + 1;
-        });
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="cart-total-price">0 FCFA</span>
+            </div>
+            <button class="checkout-btn">Passer la commande via WhatsApp</button>
+        </div>
+    </aside>
 
-        minus.addEventListener("click", () => {
-            let value = Number(quantity.textContent);
-            if (value > 1) {
-                quantity.textContent = value - 1;
-            }
-        });
-
-        // Gestion de la sélection des options (un choix actif par groupe)
-        optionGroups.forEach(group => {
-            group.addEventListener("click", (e) => {
-                const option = e.target.closest(".option-item");
-                if (!option) return;
-
-                group.querySelectorAll(".option-item")
-                    .forEach(item => item.classList.remove("active"));
-
-                option.classList.add("active");
-
-                selectedOptions[group.dataset.group] = option.dataset.option;
+    <!-- Scripts -->
+    <script>
+        // --- 1. GESTION DE LA GALERIE ---
+        const mainImg = document.querySelector("#main-img img");
+        const thumbs = document.querySelectorAll(".other-img-div");
+        
+        thumbs.forEach(thumb => {
+            thumb.addEventListener("click", function() {
+                // Changer l'image principale
+                mainImg.style.opacity = '0.5';
+                setTimeout(() => {
+                    mainImg.src = this.querySelector('img').src;
+                    mainImg.style.opacity = '1';
+                }, 150);
+                
+                // Gérer la classe active
+                thumbs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
             });
         });
 
-        // Un seul listener pour le clic "Ajouter au panier"
+        // --- 2. DISPONIBILITÉ ---
+        const is_dispo = document.getElementById("is_dispo");
+        const stock = <%= product.stock %>;
+        if (stock <= 0) {
+            is_dispo.innerHTML = '<i class="fa-solid fa-xmark"></i> Rupture de stock';
+            is_dispo.className = 'badge rupture';
+        }
+
+        // --- 3. QUANTITÉ ---
+        const quantityDisplay = document.querySelector(".quantity");
+        document.querySelector(".plus").addEventListener("click", () => {
+            quantityDisplay.textContent = Number(quantityDisplay.textContent) + 1;
+        });
+        document.querySelector(".minus").addEventListener("click", () => {
+            if (Number(quantityDisplay.textContent) > 1) {
+                quantityDisplay.textContent = Number(quantityDisplay.textContent) - 1;
+            }
+        });
+
+        // --- 4. GESTION DE L'OUVERTURE DU PANIER (NOUVEAU) ---
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const openCartBtn = document.getElementById('open-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+
+        function toggleCart() {
+            cartOverlay.classList.toggle('active');
+            cartDrawer.classList.toggle('active');
+            // Empêche le scroll de la page quand le panier est ouvert
+            document.body.style.overflow = cartDrawer.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        openCartBtn.addEventListener('click', toggleCart);
+        closeCartBtn.addEventListener('click', toggleCart);
+        cartOverlay.addEventListener('click', toggleCart);
+
+        // --- 5. AJOUT AU PANIER (Ton script existant adapté) ---
+        const addCartBtn = document.querySelector(".add-to-cart");
         addCartBtn.addEventListener("click", async () => {
-
-            addCartBtn.classList.add('clicked');
-            setTimeout(() => addCartBtn.classList.remove('clicked'), 150);
-
-            if (Object.keys(selectedOptions).length !== optionGroups.length) {
-                alert("Veuillez choisir toutes les options.");
+            if (stock <= 0) {
+                alert("Produit en rupture de stock.");
                 return;
             }
 
-            const product = {
+            // Récupère les options si existantes (logique à adapter selon tes besoins)
+            const payload = {
                 id: addCartBtn.dataset.id,
                 name: addCartBtn.dataset.name,
                 price: Number(addCartBtn.dataset.price),
-                options: selectedOptions,          // objet: { Pointure: "42", Couleur: "Noir" }
-                quantity: Number(quantity.textContent),
+                quantity: Number(quantityDisplay.textContent),
                 image: addCartBtn.dataset.image
             };
 
+            // Simule l'ajout et ouvre le tiroir panier
             try {
                 const res = await fetch('/cart/add', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(product)
+                    body: JSON.stringify(payload)
                 });
-
                 const data = await res.json();
-
+                
                 if (data.success) {
-                    renderCart(data.cart);
-                    updateCartSticker();
+                    // Si tu as des fonctions pour rendre le panier, appelle-les ici
+                    // renderCart(data.cart);
+                    // updateCartSticker();
+                    
+                    // Ouvre le panier avec une petite animation pour confirmer l'ajout
+                    toggleCart();
                 }
-
             } catch (err) {
-                console.error("Erreur ajout panier:", err);
+                console.error(err);
             }
         });
-
-        const stock = <%= product.stock %>;
-        if (stock <= 0) {
-            is_dispo.classList.add("false");
-        }
-
     </script>
+<<<<<<< HEAD
 
     <script src="/js/cart.js"></script>
     <script src="/js/carousel.js"></script>
 
 
+=======
+    
+    <script src="/js/cart.js"></script> <!-- Ton fichier JS global pour le panier s'il existe -->
+>>>>>>> dd1a41a2289aa17f5949b855942cf55a1a5c8b62
 </body>
 </html>

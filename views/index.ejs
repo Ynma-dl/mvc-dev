@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votre Marque</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/footer.css">
@@ -15,9 +19,37 @@
 
 <body>
 
-    <!-- Navigation Desktop (Cachée sur mobile via le CSS) -->
-    <header class="category-header">
-        <nav class="category-nav">
+    <!-- ======================================================= -->
+    <!-- NAVIGATION — bandeau haut minimaliste (remplace l'ancienne
+         barre flottante du bas + le menu catégorie classique) -->
+    <!-- ======================================================= -->
+    <header class="site-header">
+        <div class="site-header-inner">
+            <div class="header-side header-side-left">
+                <button class="header-icon-btn menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileDrawer">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a href="/search" class="header-icon-btn" aria-label="Rechercher" title="Rechercher">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+            </div>
+
+            <a href="/" class="site-logo">Votre Marque</a>
+
+            <div class="header-side header-side-right">
+                <a href="/account" class="header-icon-btn" aria-label="Compte" title="Compte">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <a href="/cart" class="header-icon-btn cart-btn" aria-label="Panier" title="Panier">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sous-navigation catégories : visible en ligne sur desktop,
+             remplacée par le tiroir (drawer) sur mobile -->
+        <nav class="site-subnav">
             <a href="http://localhost:5000/collection/new-arrivals">Nouveautés</a>
             <a href="http://localhost:5000/collection/sneakers">Sneakers</a>
             <a href="http://localhost:5000/collection/jeans">Jeans</a>
@@ -26,6 +58,25 @@
             <a href="http://localhost:5000/collection/summer-sales">Promotions</a>
         </nav>
     </header>
+
+    <!-- Tiroir mobile (catégories), ouvert via le bouton hamburger -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <span class="site-logo">Votre Marque</span>
+            <button class="header-icon-btn drawer-close" id="drawerClose" aria-label="Fermer le menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <nav class="mobile-drawer-nav">
+            <a href="http://localhost:5000/collection/new-arrivals"><i class="fa-solid fa-sparkles"></i> Nouveautés</a>
+            <a href="http://localhost:5000/collection/sneakers"><i class="fa-solid fa-shoe-prints"></i> Sneakers</a>
+            <a href="http://localhost:5000/collection/jeans"><i class="fa-solid fa-shirt"></i> Jeans</a>
+            <a href="http://localhost:5000/collection/chaussures"><i class="fa-solid fa-socks"></i> Chaussures</a>
+            <a href="http://localhost:5000/collection/accessoires"><i class="fa-solid fa-glasses"></i> Accessoires</a>
+            <a href="http://localhost:5000/collection/summer-sales"><i class="fa-solid fa-tags"></i> Promotions</a>
+        </nav>
+    </div>
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
 
     <!-- Banner -->
     <section class="hero-banner">
@@ -57,63 +108,88 @@
         </div>
     </aside>
 
-    <!-- Pastille Panier Flottante (Desktop, cachée sur mobile) -->
-    <div class="cart-sticker">
-        <i class="fa-solid fa-basket-shopping"></i>
-        <span class="cart-count">0</span>
+<footer class="footer">
+  <!-- Ligne lumineuse décorative -->
+  <div class="footer-glow-line"></div>
+
+  <div class="footer-container">
+    <!-- Brand & Réseaux -->
+    <div class="footer-brand">
+      <h3 class="brand-title">Votre Marque<span class="neon-dot">.</span></h3>
+      <p class="brand-desc">Une mode moderne et engagée conçue pour marquer votre style.</p>
+
+      <!-- Icônes Réseaux Font Awesome (Instagram, TikTok, Facebook) -->
+      <div class="social-wrapper">
+        <a href="#" aria-label="Instagram" class="social-card instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+
+        <a href="#" aria-label="TikTok" class="social-card tiktok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+
+        <a href="#" aria-label="Facebook" class="social-card facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+      </div>
     </div>
 
-    <!-- ======================================================= -->
-    <!-- NOUVELLE NAVIGATION MOBILE (Visible uniquement sur mobile) -->
-    <!-- ======================================================= -->
-    <nav class="mobile-bottom-nav">
-        <a href="#" class="nav-item"><i class="fa-solid fa-bars"></i></a>
-        <a href="#" class="nav-item"><i class="fa-regular fa-user"></i></a>
+    <!-- Navigation -->
+    <div class="footer-column">
+      <h4 class="column-title">Navigation</h4>
+      <ul class="footer-links-list">
+        <li><a href="#"><span>Nouveautés</span><span class="link-badge">New</span></a></li>
+        <li><a href="#"><span>Chaussures</span></a></li>
+        <li><a href="#"><span>Accessoires</span></a></li>
+        <li><a href="#"><span>Collections</span></a></li>
+      </ul>
+    </div>
 
-        <a href="#" class="nav-item search-btn">
-            <div class="search-circle">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-        </a>
+    <!-- Contact -->
+    <div class="footer-column">
+      <h4 class="column-title">Contact</h4>
+      <div class="contact-info">
+        <p><a href="mailto:contact@votremarque.com">contact@votremarque.com</a></p>
+        <p class="phone-number">+225 XX XX XX XX</p>
+        <span class="status-indicator"><span class="status-dot"></span> Service client ouvert</span>
+      </div>
+    </div>
 
-        <a href="#" class="nav-item"><i class="fa-regular fa-heart"></i></a>
-        <a href="#" class="nav-item cart-item">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span class="nav-cart-badge">0</span>
-        </a>
-    </nav>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <h3>Votre Marque</h3>
-                <p>Une mode moderne pour une nouvelle ère.</p>
-            </div>
-
-            <div class="footer-links">
-                <h4>Navigation</h4>
-                <a href="#">Nouveautés</a>
-                <a href="#">Chaussures</a>
-                <a href="#">Accessoires</a>
-            </div>
-
-            <div class="footer-contact">
-                <h4>Contact</h4>
-                <p>contact@votremarque.com</p>
-                <p>+225 XX XX XX XX</p>
-            </div>
+    <!-- Newsletter Card -->
+    <div class="newsletter-card">
+      <div class="newsletter-header">
+        <h4 class="column-title">Rejoignez le club</h4>
+        <p>Recevez nos drops exclusifs et -10% sur votre première commande.</p>
+      </div>
+      <form class="newsletter-form-visual" onsubmit="return false;">
+        <div class="input-wrapper">
+          <input type="email" placeholder="Entrez votre email" required>
+          <button type="submit" aria-label="S'abonner">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
         </div>
+      </form>
+    </div>
+  </div>
 
-        <div class="footer-bottom">
-            © 2026 Votre Marque. Tous droits réservés.
-        </div>
-    </footer>
+  <!-- Bottom Section -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>© 2026 Votre Marque. Tous droits réservés.</p>
+      <div class="legal-links">
+        <a href="#">Confidentialité</a>
+        <a href="#">Conditions générales</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
     <%- include('partials/cart-popup') %>
 
     <script src="/js/cart.js"></script>
     <script src="/js/carousel.js"></script>
+    <script src="/js/menu.js"></script>
+    <script src="/js/home.js"></script>
 
 </body>
 
