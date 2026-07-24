@@ -1,10 +1,9 @@
 /**
  * Récupère les commandes depuis la base et génère leur HTML
  *
- * @param {number} limit - Nombre de commandes à récupérer (par défaut 10)
  * @returns {Promise<string>} HTML généré, prêt à être inséré
  */
-async function renderOrderViews(pool, limit = 10) {
+async function renderOrderViews(pool) {
     let orders;
 
     try {
@@ -13,15 +12,8 @@ async function renderOrderViews(pool, limit = 10) {
         const rows = await pool.query(
             `SELECT id, customer_name, customer_address, total, order_status
      FROM orders
-     WHERE created_at >= ?
-       AND created_at < DATE_ADD(?, INTERVAL 1 DAY)
-     ORDER BY created_at DESC
-     LIMIT ?`,
-            [
-                today + " 00:00:00",
-                today + " 00:00:00",
-                limit
-            ]
+    
+     ORDER BY created_at DESC`
         );
 
         orders = rows;
@@ -57,7 +49,7 @@ async function renderOrderViews(pool, limit = 10) {
         `;
     }).join('');
 
-    return `<div id="orderListContainer">${ordersHTML}</div>`;
+    return `<div class="orderListContainer">${ordersHTML}</div>`;
 }
 
 /**
@@ -93,6 +85,155 @@ function formatPrice(price) {
     return Number(price).toLocaleString('fr-FR');
 }
 
+
+function fillPopup(order) {
+
+
+    document.getElementById("popupCustomer")
+        .textContent = order.customer_name;
+
+
+    document.getElementById("popupPhone")
+        .textContent = order.phone;
+
+
+    const productsDiv =
+        document.getElementById("popupProducts");
+
+
+    productsDiv.innerHTML = "";
+
+
+    order.products.forEach(product => {
+
+
+        productsDiv.innerHTML += `
+
+<div>
+
+<h4>${product.name}</h4>
+
+<p>
+Quantité : ${product.quantity}
+</p>
+
+<p>
+Prix : ${product.price}
+</p>
+
+</div>
+
+`;
+
+
+    });
+
+
+    document.getElementById("popupTotal")
+        .textContent =
+        order.total + " FCFA";
+
+
+}
+
+async function getById(pool, id) {
+
+    const rows = await pool.query(
+        `
+        SELECT 
+            orders.id,
+            orders.customer_name,
+            orders.customer_phone,
+            orders.customer_address,
+            orders.total,
+            orders.order_status,
+            orders.created_at,
+
+            order_items.product_id,
+            order_items.product_name,
+            order_items.quantity,
+            order_items.unit_price,
+            order_items.selected_options
+
+        FROM orders
+
+        LEFT JOIN order_items
+        ON orders.id = order_items.order_id
+
+        WHERE orders.id = ?
+
+        `,
+        [id]
+    );
+
+
+    if (rows.length === 0) {
+        return null;
+    }
+
+
+
+    const order = {
+
+        id: rows[0].id,
+
+        customer_name: rows[0].customer_name,
+
+
+        phone: rows[0].customer_phone,
+
+        address: rows[0].customer_address,
+
+        total: rows[0].total,
+
+        order_status: rows[0].order_status,
+
+        created_at: rows[0].created_at,
+
+        products: []
+
+    };
+
+
+
+    rows.forEach(row => {
+
+
+        order.products.push({
+
+            product_id: row.product_id,
+
+            name: row.product_name,
+
+            quantity: row.quantity,
+
+            price: row.unit_price,
+
+            options: row.selected_options
+
+        });
+
+
+    });
+
+
+
+    return order;
+
+}
+
+// ordersModels.js
+async function updateStatus(pool, id, status) {
+    const result = await pool.query(
+        'UPDATE orders SET order_status = ? WHERE id = ?',
+        [status, id]
+    );
+    return result;
+}
+
+
 module.exports = {
-    renderOrderViews
+    renderOrderViews,
+    getById,
+    updateStatus
 }

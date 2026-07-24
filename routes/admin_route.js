@@ -26,6 +26,14 @@ router.get(
     adminController.orders
 )
 
+router.get(
+    "/admin-complique/orders/:id",
+    adminController.getOrderDetails
+);
+
+// routes.js
+router.patch('/admin-complique/orders/:id/status', adminController.updateOrderStatus);
+
 // Paramètres
 router.get(
     "/admin-complique/settings",

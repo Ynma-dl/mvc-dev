@@ -3,6 +3,8 @@ const { renderProductViews, renderOrderViews } = require("../utils/function");
 const collectionModel = require("../models/collectionModel");
 const dashboardModel = require("../models/dashboardModel.js");
 const ordersModels = require("../models/ordersModel.js");
+const path = require("path");
+const CONSTANTS = require("../utils/config");
 
 
 
@@ -31,7 +33,7 @@ exports.dashboard = async (req, res) => {
         });
 
 
-    } catch(error){
+    } catch (error) {
 
         console.log("Erreur dashboard :", error);
 
@@ -63,7 +65,7 @@ exports.getStats = async (req, res) => {
 
             orders:
                 dashboardModel.formatHourlyData(ordersRows),
-            
+
             hoursSales:
                 dashboardModel.formatHourlyData(salesRows),
 
@@ -72,13 +74,13 @@ exports.getStats = async (req, res) => {
         });
 
 
-    } catch(error){
+    } catch (error) {
 
         console.log("Erreur dashboard :", error);
 
 
         res.status(500).json({
-            error:"Erreur serveur"
+            error: "Erreur serveur"
         });
 
     }
@@ -101,14 +103,52 @@ exports.catalogue = async (req, res) => {
 
 // orders
 
+exports.getOrderDetails = async (req, res) => {
+
+
+    const id = req.params.id;
+
+
+    console.log("ID reçu :", id);
+
+
+    const order = await ordersModels.getById(pool, id);
+
+
+    console.log(order);
+
+
+    res.json(order);
+
+
+}
+
 exports.orders = async (req, res) => {
 
     const ordersHtml = await ordersModels.renderOrderViews(pool);
 
     res.render("admin/orders", {
         title: "orders",
-        orders: ordersHtml
+        orders: ordersHtml,
     });
+};
+
+exports.updateOrderStatus = async (req, res) => {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    const allowedStatuses = ['pending', 'confirmed', 'delivered', 'cancelled'];
+    if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({ error: 'Statut invalide' });
+    }
+
+    try {
+        await ordersModels.updateStatus(pool, id, status);
+        res.json({ success: true, status });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
 };
 
 

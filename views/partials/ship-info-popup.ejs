@@ -1,0 +1,60 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/popup-ship.css">
+
+</head>
+
+<body>
+
+    <div id="orderPopupOverlay" class="popup-overlay">
+        <div class="popup-card">
+            <button id="popupClose" class="popup-close" aria-label="Fermer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="popup-header">
+                <div class="popup-header-top">
+                    <h3 id="popupCustomer" class="popup-customer"></h3>
+                    <span id="popupStatus" class="popup-status-badge"></span>
+                </div>
+
+                <div class="popup-meta">
+                    <span class="popup-meta-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span id="popupPhone"></span>
+                    </span>
+                    <span class="popup-meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="popupAddress"></span>
+                    </span>
+                    <span class="popup-meta-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <span id="popupDate"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="popup-body">
+                <h4 class="popup-section-title">Produits commandés</h4>
+                <div id="popupProducts" class="popup-products"></div>
+            </div>
+
+            <div class="popup-actions">
+                <button id="popupCancelBtn" class="popup-btn popup-btn-danger">
+                    <i class="fa-solid fa-ban"></i> Annuler
+                </button>
+                <button id="popupNextBtn" class="popup-btn popup-btn-success">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span id="popupNextLabel">Confirmer</span>
+                </button>
+            </div>
+
+            <div class="popup-footer">
+                <span class="popup-total-label">Total</span>
+                <span id="popupTotal" class="popup-total-value"></span>
+            </div>
+        </div>
+    </div>
+
+
+</body>
